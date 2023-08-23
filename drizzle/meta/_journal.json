@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1692705429568,
+      "tag": "0000_bouncy_meggan",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1692708595384,
+      "tag": "0001_bouncy_synch",
+      "breakpoints": true
+    }
+  ]
+}
