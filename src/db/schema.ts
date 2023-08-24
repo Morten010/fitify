@@ -128,7 +128,7 @@ export const exercises = pgTable(
     sets: integer("sets").notNull(),
   }
 )
-export const exercisesRelations = relations(exercises, ({ one, many }) => ({
+export const exercisesRelations = relations(exercises, ({ one }) => ({
 	workout: one(workouts, {
 		fields: [exercises.workoutDayId],
 		references: [workouts.id],
