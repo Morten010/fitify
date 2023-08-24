@@ -10,7 +10,11 @@ const config = {
     './src/app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
 	],
-  plugins: [animateTailwind, shadcnPlugin],
+  plugins: [
+    animateTailwind, 
+    shadcnPlugin, 
+    require('tailwind-scrollbar-hide')
+  ],
 } satisfies Config;
 
 export default config; 

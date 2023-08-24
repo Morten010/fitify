@@ -27,19 +27,35 @@ const LoginSchema = object({
     minLength(6, "Password has to be atleast 6 characters"),
   ]),
 });
+  const signUpSchema = object({
+    name: string("Name required", [
+      minLength(2, "Name required")
+    ]),
+    email: string("Email Required",[
+      email("Email required")
+    ]),
+    password: string("Password required",[
+      minLength(6, "Password has to be atleast 6 characters"),
+    ]),
+  });
 
-type UserProps = Output<typeof LoginSchema>
+
+type UserProps = Output<typeof LoginSchema> & {
+  name?: string
+}
 
 export default function UserAuthForm({ className, login=false, ...props }: UserAuthFormProps) {
   const [userState, userDispatch] = useReducer((prev: UserProps , next: UserProps ) => {
     return {...prev, ...next}
   }, {
+    name: "",
     email: "",
     password: ""
   })
   const [errorState, errorDispatch] = useReducer((prev: UserProps, next: UserProps) => {
     return {...prev, ...next}
   }, {
+    name: "",
     email: "",
     password: ""
   })
@@ -52,19 +68,21 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
   type AddUserParams ={
     email: string;
     password: string;
+    name: string;
   }
 
-  const {mutate: AddUser} = useMutation({
-    mutationFn: async ({email, password}: AddUserParams) => {
-      const sendUser = {email, password};
+  const {mutateAsync: AddUser} = useMutation({
+    mutationFn: async ({email, password, name}: AddUserParams) => {
+      const sendUser = {email, password, name};
       const {data} = await axios.post("/api/signup", sendUser);
       return data
     },
-    onError: (err) => {
-      console.log(err instanceof AxiosError);
+    onError: (err: AxiosError) => {
+      console.log(err);
       toast({
         title: "Could not create user",
-        description: "Could not create user at this time try again or come back later😢",
+        description: `Could not create user ${err.response?.data} at this time try again or come back later😢`,
+        variant: "destructive"
       })
     },
     onSuccess: () => {
@@ -111,11 +129,11 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
       redirect: false,
     })
     
-    console.log(res);
     if(!res?.url){
       toast({
         title: "Incorrect Login Credentials",
-        description: "the login credentials you entered are incorrect. Please double-check your email/username and password and try again😢"
+        description: "the login credentials you entered are incorrect. Please double-check your email/username and password and try again😢",
+        variant: "destructive"
       })      
       setIsLoading(false)
       return
@@ -134,11 +152,12 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
 
     errorDispatch({
       email: "",
-      password: ""
+      password: "",
+      name: ""
     })
 
     try{
-      parse(LoginSchema, {...userState})
+      parse(signUpSchema, {...userState})
       
     }catch(err: any){
       //flatten error to useable object
@@ -150,6 +169,7 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
       const newErrors = {
         email: errors.email ? errors.email[0] : "",
         password: errors.password ? errors.password[0] : "",
+        name: errors.name ? errors.name[0] : "",
       }
 
       //set error
@@ -157,9 +177,19 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
 
       //stop loading
       setIsLoading(false)
+      return 
     }
+    console.log(userState.name?.trim());
+    
+    const cleanUser = {
+      name: userState.name?.trim()!,
+      email: userState.email.trim(),
+      password: userState.password.trim()
+    }
+    console.log(cleanUser);
+    
 
-    const res = await AddUser(userState)
+    const res = await AddUser(cleanUser)
 
     console.log(res);
     //stop loading
@@ -187,19 +217,24 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
                 <Input
                   id="name"
                   placeholder="full Name"
-                  type="password"
+                  type="text"
                   autoCapitalize="none"
                   autoComplete="name"
                   autoCorrect="off"
                   disabled={isLoading}
-                  value={userState.password}
+                  value={userState.name}
                   onChange={(e) => {
                     userDispatch({
                       ...userState,
-                      password: e.currentTarget.value
+                      name: e.currentTarget.value
                     })
                   }}
                 />
+                {errorState.name && (
+                  <p className="text-red-600 text-sm">
+                    {errorState.name}
+                  </p>
+                )}
               </>
             )}
             <Label className="sr-only" htmlFor="email">
@@ -234,7 +269,7 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
               placeholder="password"
               type="password"
               autoCapitalize="none"
-              autoComplete="password"
+              autoComplete="current-password"
               autoCorrect="off"
               disabled={isLoading}
               value={userState.password}

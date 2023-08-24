@@ -7,13 +7,15 @@ import { eq } from 'drizzle-orm'
 type BodyProps = {
     email: string
     password: string
+    name: string
 }
 
 export async function POST(req: Request, res: Response) {
-    const {password, email}: BodyProps = await req.json()
+    const body = await req.json()
+    const {email , password, name} = body
 
-    if(!email || !password ){
-        return new Response("Missing password and email", {
+    if(!email || !password || !name){
+        return new Response("Missing name, password or email", {
             status: 400
         })
     }
@@ -33,6 +35,7 @@ export async function POST(req: Request, res: Response) {
     const newUser = await db.insert(users).values({
         email: email,
         password: hashedPassword,
+        name: name,
         id: nanoid()
     })
 

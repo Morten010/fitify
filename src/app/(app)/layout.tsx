@@ -13,7 +13,11 @@ export default async function AuthLayout({children}: {children: React.ReactNode}
   return (
     <main>
       <Navbar />
-      {children}
+      <div
+      className='max-w-screen-lg mx-auto'
+      >
+        {children}
+      </div>
     </main>
   )
 }

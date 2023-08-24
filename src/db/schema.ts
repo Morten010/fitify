@@ -4,9 +4,11 @@ import {
   text,
   primaryKey,
   integer,
+  varchar,
+  serial,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
-import { InferModel } from "drizzle-orm";
+import { InferModel, relations } from "drizzle-orm";
 
 
 //user
@@ -18,6 +20,10 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+	workouts: many(workouts),
+}));
 
 export type Users = InferModel<typeof users>;
 
@@ -68,3 +74,68 @@ export const verificationTokens = pgTable(
   })
 );
 export type VerificationTokens = InferModel<typeof verificationTokens>;
+
+// workouts
+export const workouts = pgTable(
+  "workout",
+  {
+    id: serial("id").primaryKey().notNull(),
+    name: text("text").notNull(),
+    description: varchar('description', { length: 256 }).notNull(),
+    userId: text("userId").notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+  }
+)
+
+export const workoutsRelations = relations(workouts, ({ one, many }) => ({
+	user: one(users, {
+		fields: [workouts.userId],
+		references: [users.id],
+	}),
+  days: many(workoutDays),
+}));
+
+export type Workouts= InferModel<typeof workouts>;
+
+export const workoutDays = pgTable(
+  "workoutDays", 
+  {
+    id: serial("id").primaryKey().notNull(),
+    workoutId: integer("workoutId")
+      .references(() => workouts.id, { onDelete: "cascade" }),
+    dayName: text("dayName").notNull()
+  }
+)
+
+export const workoutDaysRelations = relations(workoutDays, ({ one, many }) => ({
+	workout: one(workouts, {
+		fields: [workoutDays.workoutId],
+		references: [workouts.id],
+	}),
+  exercises: many(exercises)
+}));
+
+export type WorkoutDays = InferModel<typeof workoutDays>;
+
+export const exercises = pgTable(
+  "exercises", 
+  {
+    id: serial("id").primaryKey().notNull(),
+    workoutDayId: integer("workoutId").notNull()
+      .references(() => workoutDays.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    reps: integer("reps").notNull(),
+    sets: integer("sets").notNull(),
+  }
+)
+export const exercisesRelations = relations(exercises, ({ one, many }) => ({
+	workout: one(workouts, {
+		fields: [exercises.workoutDayId],
+		references: [workouts.id],
+	}),
+  
+}));
+
+export type Exercises = InferModel<typeof exercises>;
+
+

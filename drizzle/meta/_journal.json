@@ -15,6 +15,34 @@
       "when": 1692708595384,
       "tag": "0001_bouncy_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1692907107721,
+      "tag": "0002_slippery_shiver_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1692908415206,
+      "tag": "0003_old_ulik",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1692908498723,
+      "tag": "0004_minor_union_jack",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1692910765508,
+      "tag": "0005_panoramic_deadpool",
+      "breakpoints": true
     }
   ]
 }
