@@ -13,11 +13,11 @@ export default function Page({params}:{params: {
   day: string
   id: string
 }}) {
-  const {id} = params;
+  const {day} = params;
 
     const {data, isSuccess} = useQuery({
       queryFn: async () => {
-        const {data} = await axios.get(`/api/workouts/workoutday?id=${id}`)
+        const {data} = await axios.get(`/api/workouts/workoutday?id=${day}`)
         return data
       },
       queryKey: ["day"]

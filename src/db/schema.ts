@@ -124,6 +124,7 @@ export const exercises = pgTable(
     workoutDayId: integer("workoutId").notNull()
       .references(() => workoutDays.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
+    description: varchar("description"),
     reps: integer("reps").notNull(),
     sets: integer("sets").notNull(),
   }

@@ -4,7 +4,6 @@ import { Card, CardHeader } from '../ui/card'
 
 export default function DaySkeleton() {
     const arr = Array(10).fill("")
-    console.log(arr);
     
   return (
     <div>

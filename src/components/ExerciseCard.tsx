@@ -5,6 +5,8 @@ import { Card } from './ui/card'
 
 export default function ExerciseCard({exercise}: {exercise: Exercises}) {
     const [showMore, setShowMore] = useState(false)
+    console.log(exercise);
+    
   return (
     <Card
     className='p-6 hover:opacity-70 cursor-pointer select-none'
@@ -24,6 +26,27 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
         {/* card bottom */}
         {showMore && <div 
         className="cardBottom">
+            <h2
+            className='text-lg font-bold'
+            >
+                Info
+            </h2>
+            <p
+            className='mb-4'
+            >
+                {exercise.description ? exercise.description : "none"}
+            </p>
+            <h2
+            className='text-lg font-bold'
+            >
+                Video
+            </h2>
+            <p
+            className='mb-4'
+            >
+                Video example <br />
+                <span className='text-sm opacity-60'>Coming soon</span>
+            </p>
             <h2
             className='text-lg font-bold'
             >

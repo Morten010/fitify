@@ -43,6 +43,20 @@
       "when": 1692910765508,
       "tag": "0005_panoramic_deadpool",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1692958064568,
+      "tag": "0006_fearless_sheva_callister",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1692958445103,
+      "tag": "0007_melodic_felicia_hardy",
+      "breakpoints": true
     }
   ]
 }

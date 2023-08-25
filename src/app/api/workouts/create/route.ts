@@ -17,6 +17,7 @@ export async function POST(req: Request, res: Response) {
                 exercises: d.exercises.map(e => {
                     return {
                         exercise: e.exercise,
+                        description: e.description,
                         reps: parseInt(e.reps),
                         sets: parseInt(e.sets),
                     }
@@ -24,6 +25,7 @@ export async function POST(req: Request, res: Response) {
             }
         })
     }
+
     const user = await getServerSession(authOptions)
     
     const newWorkout = await db.insert(workouts).values({
@@ -51,12 +53,13 @@ export async function POST(req: Request, res: Response) {
             })
         }
 
-        d.exercises.map(async (e) => {
+        const wait = d.exercises.map(async (e) => {
             const newExercise = await db.insert(exercises).values({
                 name: e.exercise,
                 reps: parseInt(e.reps),
                 sets: parseInt(e.sets),
-                workoutDayId: newWorkoutDay[0].id
+                description: e.description,
+                workoutDayId: newWorkoutDay[0].id,
             })
             if(!newExercise){
                 const deleteWorkout = db.delete(workouts).where(eq(workouts.id, newWorkout[0].id))
@@ -65,6 +68,7 @@ export async function POST(req: Request, res: Response) {
                 })
             }
         })
+        await Promise.all(wait)
     })
 
     await Promise.all(filteredWorkoutDays)

@@ -14,8 +14,6 @@ export async function GET(req: Request, res: Response) {
         },
         where: eq(workoutDays.id, parseInt(id)),
     })
-    
-    console.log(results);
 
     if(!results) return new Response("Something went wrong trying to get the data", {status: 400})
 

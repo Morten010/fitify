@@ -4,6 +4,8 @@ import { Input } from '../../ui/input'
 import { Button } from '../../ui/button'
 import {AiFillDelete, AiOutlinePlus} from "react-icons/ai"
 import { DayProps, FormProps, WorkoutProps } from './WorkoutForm'
+import { Description } from '@radix-ui/react-toast'
+import { Textarea } from '../../ui/textarea'
 
 type WorkoutsProps = {
     workoutState: {
@@ -26,6 +28,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 exercises: [...d.exercises, {
                     id: Date.now(),
                     exercise: "",
+                    description: "",
                     reps: "3",
                     sets: "12"
                 }]
@@ -49,6 +52,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 return {
                     id: ex.id,
                     exercise: e.currentTarget.value,
+                     description: ex.description,
                     reps: ex.reps,
                     sets: ex.sets,
                 }
@@ -64,9 +68,35 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
             ...workoutState,
             days: sortedDays
         })
-        console.log(e.currentTarget.value);
         
-        console.log(sortedDays);
+    }
+
+        const handleDescChange = (day: WorkoutProps, e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        
+        const sortedDays = workoutState.days.map(d => {
+            if(!d.exercises.includes(day)) return d
+            const newExercises = d.exercises.map(ex => {
+                if(ex.id !== day.id ) return ex
+                    
+                return {
+                    id: ex.id,
+                    exercise: ex.exercise,
+                    description: e.currentTarget.value,
+                    reps: ex.reps,
+                    sets: ex.sets,
+                }
+            });
+            return {
+                dayName: d.dayName,
+                exercises: newExercises,
+                id: d.id
+            }
+        })
+        
+        workoutDispatch({
+            ...workoutState,
+            days: sortedDays
+        })
         
     }
 
@@ -80,6 +110,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     id: ex.id,
                     exercise: ex.exercise,
                     reps: e.currentTarget.value,
+                    description: ex.description,
                     sets: ex.sets,
                 }
             });
@@ -106,12 +137,13 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     exercise: ex.exercise,
                     reps: ex.reps,
                     sets: e.currentTarget.value,
+                    description: ex.description
                 }
             });
             return {
                 dayName: d.dayName,
                 exercises: newExercises,
-                id: d.id
+                id: d.id,
             }
         })
         workoutDispatch({
@@ -146,15 +178,25 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 </Button>
             </CardHeader>
             <CardContent>
-               {workoutDay.exercises.map(workout => (
+               {workoutDay.exercises.map((workout, index) => (
                 <div
                 key={workout.id}
-                className='flex flex-col gap-2 border-b py-2'
+                className={`flex flex-col gap-2 py-2 ${index !== workoutDay.exercises.length - 1 ? "border-b": ""}`}
                 >
+                    <h3>
+                        Exercise {index + 1}
+                    </h3>
                     <Input 
-                    placeholder='Exercise name'
+                    placeholder='exercise name'
                     value={workout.exercise}
                     onChange={(e) => handleNameChange(workout, e)}
+                    />
+                    <Textarea 
+                    placeholder='description'
+                    value={workout.description} 
+                    rows={2}
+                    className='resize-none'
+                    onChange={(e) => handleDescChange(workout , e)}
                     />
                     <div
                     className='flex gap-2'

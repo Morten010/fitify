@@ -11,12 +11,14 @@ import { toast } from '../../ui/use-toast'
 import axios, { AxiosError } from 'axios'
 import { flatten, minLength, object, parse, string } from 'valibot'
 import { useRouter } from 'next/navigation'
+import { Icons } from '../../icons'
 
 
 // props
 export type WorkoutProps = {
     id: number
     exercise: string
+    description: string
     reps: string
     sets: string
 }
@@ -51,6 +53,9 @@ const exerciseSchema = object({
     exercise: string("exercise required",[
       minLength(1, "exercise required"),
     ]),
+    description: string("description required", [
+        minLength(1, "description required")
+    ]),
     reps: string("reps required",[
         minLength(1, "reps required"),
     ]),
@@ -72,6 +77,7 @@ export default function WorkoutForm() {
             exercises: [{
                 id: Date.now(),
                 exercise: "",
+                description: "",
                 reps: "3",
                 sets: "12"
             }]
@@ -79,8 +85,10 @@ export default function WorkoutForm() {
     })
     const router = useRouter()
 
-    const {mutateAsync: createWorkout} = useMutation({
+    const {mutateAsync: createWorkout, isLoading} = useMutation({
+        
         mutationFn: async () => {
+            console.log(workoutState);
             const {data} = await axios.post("/api/workouts/create", workoutState);
             return data
         },
@@ -103,10 +111,8 @@ export default function WorkoutForm() {
     });
 
     const handleSubmit = async () => {
-        console.log("ran");
         try{
             console.log(workoutState);
-            
             const workoutDetails = {
                 title: workoutState.title,
                 description: workoutState.description
@@ -136,6 +142,8 @@ export default function WorkoutForm() {
         
         await createWorkout()
     }
+    console.log(isLoading);
+    
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
@@ -184,8 +192,12 @@ export default function WorkoutForm() {
         ))}
 
         <Button
-        onClick={() => handleSubmit()}
+        disabled={isLoading}
+        onClick={() => !isLoading ? handleSubmit() : undefined}
         >
+            {isLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
             Submit
         </Button>
     </form>
