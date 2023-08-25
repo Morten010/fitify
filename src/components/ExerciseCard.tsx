@@ -6,8 +6,6 @@ import { Card } from './ui/card'
 export default function ExerciseCard({exercise}: {exercise: Exercises}) {
     const [showMore, setShowMore] = useState(false)
     
-    console.log(exercise);
-    
   return (
     <Card
     className='p-6 hover:opacity-70 cursor-pointer select-none'

@@ -6,6 +6,7 @@ import { toast } from '@/src/components/ui/use-toast'
 import { WorkoutDays, workoutDays } from '@/src/db/schema'
 import axios, { AxiosError } from 'axios'
 import { getSession, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -22,12 +23,14 @@ export default function page({params}: {
     const {data} = useSession()
     console.log(data);
     
+    // fetch workout
     const {data: workout, isFetched, isSuccess} = useQuery({
         queryFn: async () => {
           const {data} = await axios.get(`/api/workouts/findone?id=${id}`)
           return data 
         },
     })
+    // delete workotu
     const {mutateAsync: deleteWorkout} = useMutation({
         mutationFn: async () => {
           const {data} = await axios.delete(`/api/workouts/delete?id=${workout.id}`,);
@@ -98,7 +101,7 @@ export default function page({params}: {
                 </Link>
             ))}
         </div>
-        {!isSuccess && <WorkoutsSkeleton />}
+        {!isSuccess && !workout && <WorkoutsSkeleton />}
     </div>
   )
 }
