@@ -1,4 +1,5 @@
 "use client"
+import ExerciseCard from '@/src/components/ExerciseCard';
 import DaySkeleton from '@/src/components/skeletons/DaySkeleton';
 import { Card, CardHeader } from '@/src/components/ui/card';
 import { Exercises } from '@/src/db/schema';
@@ -12,7 +13,7 @@ export default function Page({params}:{params: {
   day: string
   id: string
 }}) {
-  const {id, day} = params;
+  const {id} = params;
 
     const {data, isSuccess} = useQuery({
       queryFn: async () => {
@@ -33,17 +34,11 @@ export default function Page({params}:{params: {
       >
         {isSuccess && data && data.dayName}
       </h1>
-      <div>
+      <div className='flex flex-col gap-3'>
         {isSuccess && Array.isArray(data.exercises) && data.exercises.map((e: Exercises) => (
-          <Card>
-            <CardHeader 
-            className='flex-row justify-between items-center'
-            >
-              <h2>{e.name}</h2>
-              <p>{e.reps} reps / {e.sets} sets</p>
-            </CardHeader>
-          </Card>
+          <ExerciseCard key={e.id} exercise={e} />
         ))}
+
         {!isSuccess && <DaySkeleton />}
       </div>
     </div>
