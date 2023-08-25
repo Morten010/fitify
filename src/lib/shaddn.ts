@@ -50,6 +50,7 @@ export const shadcnPlugin = plugin(
           "*": {
             "@apply border-border": {}
           }
+
         }),
 
         addBase({

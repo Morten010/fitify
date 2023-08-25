@@ -36,7 +36,7 @@ export default function AuthenticationPage() {
             </blockquote>
           </div>
           <Image 
-          src="/auth-bg.jpg"
+          src="/red-bg.jpg"
           alt="Auth pic"
           fill
           />
