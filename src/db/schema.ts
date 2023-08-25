@@ -129,9 +129,9 @@ export const exercises = pgTable(
   }
 )
 export const exercisesRelations = relations(exercises, ({ one }) => ({
-	workout: one(workouts, {
+	workoutDay: one(workoutDays, {
 		fields: [exercises.workoutDayId],
-		references: [workouts.id],
+		references: [workoutDays.id],
 	}),
   
 }));

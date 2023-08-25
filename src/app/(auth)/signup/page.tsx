@@ -26,7 +26,7 @@ export default function AuthenticationPage() {
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex justify-end">
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg font-medium">
-            Fitness
+            Fitify
           </div>
           <div className="relative z-20">
             <blockquote className="space-y-2">

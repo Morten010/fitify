@@ -1,11 +1,19 @@
+"use client"
 import React from 'react'
 import { DarkModeButton } from './DarkModeButton'
 import { Button, buttonVariants } from './ui/button'
 import { AiFillHome } from 'react-icons/ai'
 import Link from 'next/link'
 import { cn } from '../utils'
+import { FaBackward } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
 
-export default async function Navbar() {
+export default function Navbar() {
+  const router = useRouter()
+
+  const handleBack = () => {
+    router.back()
+  }
 
   return (
     <nav
@@ -18,6 +26,15 @@ export default async function Navbar() {
           className='flex gap-2'
           >
             <DarkModeButton />
+
+            <Button
+            variant={"outline"}
+            size={'icon'}
+            onClick={() => handleBack()}
+            >
+              <FaBackward />
+            </Button>
+
             <Link
             href="/"
             className={cn(
@@ -26,6 +43,7 @@ export default async function Navbar() {
             >
               <AiFillHome />
             </Link>
+
           </div>
           <Link
           href="/create"

@@ -10,7 +10,7 @@ import WorkoutCardSkeleton from '@/src/components/skeletons/WorkoutCardSkeleton'
 export default function Home() {
   const user = useSession()
   
-  const {data: workouts, isFetching, refetch, isFetched} = useQuery({
+  const {data: workouts, isFetching, refetch, isFetched, isSuccess} = useQuery({
     queryFn: async () => {
       if(!user.data) return []
       const {data} = await axios.get(`/api/workouts/find?id=${user.data?.user.id}`)
@@ -18,6 +18,8 @@ export default function Home() {
     },
     enabled: !!user.data
   })
+  
+  console.log(workouts, isSuccess);
   
   
   
@@ -34,14 +36,14 @@ export default function Home() {
       <section
       className='w-full flex flex-col gap-3'
       >
-        {!isFetched && (
+        {!isSuccess && (
           <>
             <WorkoutCardSkeleton />
             <WorkoutCardSkeleton />
             <WorkoutCardSkeleton />
           </>
         )}
-        {workouts && workouts.map((w: Workouts) => (
+        {isSuccess && workouts && workouts.map((w: Workouts) => (
           <WorkoutCard workout={w} />
         ))}
 
