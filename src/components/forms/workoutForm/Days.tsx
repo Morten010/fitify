@@ -44,6 +44,7 @@ export default function Days({workoutState, workoutDispatch,}: DaysProps) {
                     exercises: [{
                         id: Date.now(),
                         exercise: "",
+                        description: "",
                         reps: "12",
                         sets: "3"
                     }]
