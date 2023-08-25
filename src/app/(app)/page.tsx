@@ -43,8 +43,8 @@ export default function Home() {
             <WorkoutCardSkeleton />
           </>
         )}
-        {isSuccess && workouts && workouts.map((w: Workouts) => (
-          <WorkoutCard workout={w} />
+        {isSuccess && Array.isArray(workouts) && workouts.map((w: Workouts) => (
+          <WorkoutCard key={w.id} workout={w} />
         ))}
 
       </section>

@@ -36,7 +36,7 @@ export default function page({params}: {
         <div
         className='flex flex-col gap-2 my-4'
         >
-            {isSuccess && workout.days  && workout.days.map((d: WorkoutDays) => (
+            {isSuccess && Array.isArray(workout.days)  && workout.days.map((d: WorkoutDays) => (
                 <Link
                 href={`/workouts/${workout.id}/${d.id}`}
                 >

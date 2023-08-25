@@ -1,12 +1,12 @@
 "use client"
 import DaySkeleton from '@/src/components/skeletons/DaySkeleton';
-import { Button } from '@/src/components/ui/button';
 import { Card, CardHeader } from '@/src/components/ui/card';
 import { Exercises } from '@/src/db/schema';
 import axios from 'axios';
 import React from 'react'
-import {FaBackward} from "react-icons/fa"
 import { useQuery } from 'react-query';
+
+export const revalidate = 0
 
 export default function Page({params}:{params: {
   day: string
@@ -18,7 +18,8 @@ export default function Page({params}:{params: {
       queryFn: async () => {
         const {data} = await axios.get(`/api/workouts/workoutday?id=${id}`)
         return data
-      }
+      },
+      queryKey: ["day"]
     })
 
     console.log(data);
@@ -33,7 +34,7 @@ export default function Page({params}:{params: {
         {isSuccess && data && data.dayName}
       </h1>
       <div>
-        {isSuccess && data.exercises && data.exercises.map((e: Exercises) => (
+        {isSuccess && Array.isArray(data.exercises) && data.exercises.map((e: Exercises) => (
           <Card>
             <CardHeader 
             className='flex-row justify-between items-center'
