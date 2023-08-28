@@ -42,6 +42,24 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
 
     }
 
+    const deleteExercise = (WorkoutId: number) => {
+        const sortedDays = workoutState.days.map(d => {
+            if(d.id !== workoutDay.id) return d
+            return {
+                ...d,
+                exercises: d.exercises.filter(e => {
+                    if(e.id !== WorkoutId) return e
+                })
+            }
+            
+        })
+
+        workoutDispatch({
+            ...workoutState,
+            days: sortedDays,
+        })
+    }
+
     const handleNameChange = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
         
         const sortedDays = workoutState.days.map(d => {
@@ -214,6 +232,12 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         onChange={(e) => handleSetsChange(workout, e)}
                         />
                     </div>
+                    <Button
+                    onClick={() => deleteExercise(workout.id)}
+                    variant="secondary"
+                    >
+                        Delete workout
+                    </Button>
                  </div>
                ))}
             </CardContent>

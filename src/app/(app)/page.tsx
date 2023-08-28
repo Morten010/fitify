@@ -22,10 +22,6 @@ export default function Home() {
     enabled: !!user.data
   })
   
-  console.log(workouts, isSuccess);
-  
-  
-  
   return (
     <main
     className='p-3'
