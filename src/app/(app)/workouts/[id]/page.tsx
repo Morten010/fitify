@@ -98,7 +98,7 @@ export default function page({params}: {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete your account
+                      This action cannot be undone. This will permanently delete your workout
                       and remove your data from our servers.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
