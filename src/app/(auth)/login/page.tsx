@@ -38,7 +38,7 @@ export default async function AuthenticationPage() {
             </blockquote>
           </div>
           <Image 
-          src="/red-bg.jpg"
+          src="/auth-bg.jpg"
           alt="Auth pic"
           fill
           />
