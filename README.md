@@ -20,6 +20,6 @@ Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm
 
 ## Features to be implemented
 
-- [] keep track of how much you lifted last time with weights
-- [] add youtube examples on you're workout
-- [] make it a pwa
+- [ ] keep track of how much you lifted last time with weights
+- [ ] add youtube examples on you're workout
+- [ ] make it a pwa
