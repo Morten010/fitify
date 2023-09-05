@@ -3,6 +3,7 @@ import React from 'react'
 import { DarkModeButton } from './DarkModeButton'
 import { Button, buttonVariants } from './ui/button'
 import { AiFillHome } from 'react-icons/ai'
+import {BiSolidUser} from "react-icons/bi"
 import Link from 'next/link'
 import { cn } from '../utils'
 import { FaBackward } from 'react-icons/fa'
@@ -25,7 +26,14 @@ export default function Navbar() {
           <div
           className='flex gap-2'
           >
-            <DarkModeButton />
+            <Link
+            href="/profile"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "icon"})
+            )}
+            >
+              <BiSolidUser />
+            </Link>
 
             <Button
             variant={"outline"}

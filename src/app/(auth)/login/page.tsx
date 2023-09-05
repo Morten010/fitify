@@ -23,7 +23,7 @@ export default async function AuthenticationPage() {
             "absolute right-4 top-4 md:right-8 md:top-8"
           )}
         >
-          SignUp
+          Sign Up
         </Link>
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex justify-end">
           <div className="absolute inset-0 bg-zinc-900" />
