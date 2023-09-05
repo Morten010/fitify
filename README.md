@@ -2,7 +2,7 @@
 
 Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm.
 
-[![Kicks Webshop](./public/thumbnail.jpg)
+![Kicks Webshop](./public/thumbnail.jpg)
 
 ## Features
 
