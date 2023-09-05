@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Fitness App - Your Path to a Healthier You",
   description: "Discover a wide range of workout programs designed to help you achieve your fitness goals. Join our community and embark on a journey to better health and wellness.",
   manifest: "/manifest.json",
-  themeColor: "#f69435",
+  themeColor: "#2563EB",
   icons: [
     { rel: "apple-touch-icon", url: "/icon-512x512.png" },
     { rel: "shortcut icon", url: "/favicon.ico" },
