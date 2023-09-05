@@ -9,6 +9,7 @@ Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm
  - Authentication using NextAuth
  - Create workout & edit workout page
 
+
 ## Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org)
@@ -20,6 +21,7 @@ Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm
 
 ## Features to be implemented
 
+- [x] make it a pwa
 - [ ] keep track of how much you lifted last time with weights
+- [ ] keep track of you're weight
 - [ ] add youtube examples on you're workout
-- [ ] make it a pwa
