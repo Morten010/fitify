@@ -1,4 +1,6 @@
 import { db } from '@/src/db'
+import { workouts } from '@/src/db/schema'
+import { eq } from 'drizzle-orm'
 
 export async function GET(req: Request, res: Response) {
     const url = new URL(req.url)
@@ -7,7 +9,9 @@ export async function GET(req: Request, res: Response) {
 
     if(!id) return new Response("Missing id", {status: 400})
 
-    const results = await db.query.workouts.findMany()
+    const results = await db.query.workouts.findMany({
+        where: eq(workouts.userId, id)
+    })
     
     if(!results) return new Response("Something went wrong trying to get the data", {status: 400})
 
