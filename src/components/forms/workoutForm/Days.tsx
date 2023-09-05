@@ -75,6 +75,7 @@ export default function Days({workoutState, workoutDispatch,}: DaysProps) {
                 Days
             </h2>
             <Button
+            type='button'
             variant={'outline'}
             onClick={addDay}
             >

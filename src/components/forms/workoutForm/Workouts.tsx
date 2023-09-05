@@ -186,6 +186,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 </CardTitle>
 
                 <Button
+                type='button'
                 variant={'outline'}
                 size={'icon'}
                 onClick={() => addExercise(workoutDay.id)}
@@ -233,6 +234,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         />
                     </div>
                     <Button
+                    type="button"
                     onClick={() => deleteExercise(workout.id)}
                     variant="secondary"
                     >
