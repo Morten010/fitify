@@ -44,7 +44,6 @@ export default async function EditPage({params}: EditPageProps) {
         </p>
       </div>
     )
-    console.log(workout);
     
   return (
     <div

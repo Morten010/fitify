@@ -385,8 +385,6 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                 }
             });
         }
-        console.log(changes.deletedDays);
-        
         
         //check for deleted exercises
         const deletedExercises: WorkoutProps[] = [];
@@ -423,10 +421,6 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             changes.deletedExercises[0] ||
             changes.deletedDays[0]
         ){
-            console.log("updating");
-            toast({
-                title: "There was Something to update🏎️",
-            })
             UpdateWorkout({
                ...changes, 
                 workoutId: workout?.id!
@@ -486,10 +480,13 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
         ))}
 
         <Button
-        disabled={isLoading}
-        onClick={() => !isLoading ? workout ? handleEditSubmit() : handleSubmit() : undefined}
+        disabled={workout ? isLoadingUpdate : isLoading}
+        onClick={() => workout ? handleEditSubmit() : handleSubmit()}
         >
             {isLoading && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            {isLoadingUpdate && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
             Submit
