@@ -1,8 +1,10 @@
 "use client"
 import { DarkModeButton } from '@/src/components/DarkModeButton';
-import { Button } from '@/src/components/ui/button';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/src/components/ui/alert-dialog';
+import { Button, buttonVariants } from '@/src/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/src/components/ui/card';
-import { useSession } from 'next-auth/react'
+import { cn } from '@/src/utils';
+import { signOut, useSession } from 'next-auth/react'
 import React from 'react'
 
 export default function LoginPage() {
@@ -12,7 +14,7 @@ export default function LoginPage() {
   
   return (
     <div
-    className='p-3 min-h-screen'
+    className='p-3'
     >
       {/* title and darkmode */}
       <div
@@ -54,18 +56,45 @@ export default function LoginPage() {
 
       {/* signout and delete account */}
       <div
-      className='flex gap-2 mt-auto'
+      className='flex gap-2'
       >
         <Button
+        onClick={() => signOut()}
         variant={"default"}
         >
           Sign out
         </Button>
-        <Button
-        variant={"destructive"}
-        >
-          Delete Account
-        </Button>
+        <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                  variant={"destructive"}
+                  >
+                    Delete Account
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete your account
+                      and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                    className={cn(buttonVariants({
+                      variant: "destructive"
+                    }))}
+                    onClick={() => {}}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
       </div>
     </div>
   )

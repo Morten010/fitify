@@ -25,14 +25,14 @@ export default function Navbar() {
         >
           <div
           className='flex gap-2'
-          >
+          >      
             <Link
-            href="/profile"
+            href="/"
             className={cn(
               buttonVariants({ variant: "outline", size: "icon"})
             )}
             >
-              <BiSolidUser />
+              <AiFillHome />
             </Link>
 
             <Button
@@ -44,14 +44,13 @@ export default function Navbar() {
             </Button>
 
             <Link
-            href="/"
+            href="/profile"
             className={cn(
               buttonVariants({ variant: "outline", size: "icon"})
             )}
             >
-              <AiFillHome />
+              <BiSolidUser />
             </Link>
-
           </div>
           <Link
           href="/create"
