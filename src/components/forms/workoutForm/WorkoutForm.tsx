@@ -170,9 +170,9 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             title: "Successfully Updated the workout🥳",
             description: "Redirecting you now"
             })
-            // setTimeout(() => {
-            //     router.push("/")
-            // }, 3000);
+            setTimeout(() => {
+                router.push("/")
+            }, 3000);
         },
     });
 

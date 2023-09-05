@@ -1,13 +1,13 @@
 "use client"
 import WorkoutsSkeleton from '@/src/components/skeletons/WorkoutsSkeleton'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/src/components/ui/alert-dialog'
 import { Button, buttonVariants } from '@/src/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/src/components/ui/card'
+import { Card, CardHeader, CardTitle } from '@/src/components/ui/card'
 import { toast } from '@/src/components/ui/use-toast'
-import { WorkoutDays, workoutDays } from '@/src/db/schema'
+import { WorkoutDays,} from '@/src/db/schema'
 import { cn } from '@/src/utils'
 import axios, { AxiosError } from 'axios'
-import { getSession, useSession } from 'next-auth/react'
-import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -88,13 +88,32 @@ export default function page({params}: {
               )}>
                   <AiFillEdit />
               </Link>
-              <Button
-              variant={"destructive"}
-              size={"icon"}
-              onClick={() => handleDelete()}
-              >
-                  <AiFillDelete />
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" size="icon">
+                    <AiFillDelete />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete your account
+                      and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                    onClick={() => handleDelete()}
+                    >
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               
             </div>
           )}
