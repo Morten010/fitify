@@ -3,14 +3,46 @@ import { DarkModeButton } from '@/src/components/DarkModeButton';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/src/components/ui/alert-dialog';
 import { Button, buttonVariants } from '@/src/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/src/components/ui/card';
+import { toast } from '@/src/components/ui/use-toast';
 import { cn } from '@/src/utils';
+import axios, { AxiosError } from 'axios';
 import { signOut, useSession } from 'next-auth/react'
 import React from 'react'
+import { useMutation } from 'react-query';
 
 export default function LoginPage() {
   const {data} = useSession()
+
+  const {mutateAsync: deleteUser, isLoading} =useMutation({
+    mutationFn: async (userId: string) => {
+      console.log(userId);
+      
+      const {data} = await axios.delete(`/api/user/delete?id=${userId}`,);
+      return data
+    },
+    onError: (err: AxiosError) => {
+      console.log(err);
+      toast({
+        title: "Could not Delete account",
+        description: `Could not delete your account ${err.response?.data} at this time try again or come back later😢`,
+        variant: "destructive"
+      })
+    },
+    onSuccess: () => {
+      toast({
+        title: "Sucessfully deleted",
+        description: "Redirecting you now🥳"
+      })
+      setTimeout(() => {
+        signOut()
+      }, 1500);
+    },
+  });
+
+  const handleDeleteAccount = () => {
+    deleteUser(data?.user.id)
+  }
   
-  console.log(data);
   
   return (
     <div
@@ -85,10 +117,11 @@ export default function LoginPage() {
                       Cancel
                     </AlertDialogCancel>
                     <AlertDialogAction
+                    disabled={isLoading}
                     className={cn(buttonVariants({
                       variant: "destructive"
                     }))}
-                    onClick={() => {}}
+                    onClick={() => handleDeleteAccount()}
                     >
                       Delete
                     </AlertDialogAction>
