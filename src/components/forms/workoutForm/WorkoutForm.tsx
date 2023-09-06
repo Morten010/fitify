@@ -123,6 +123,8 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             }]
         }]
     })
+    console.log(workoutState);
+    
     const router = useRouter()
     
     const {mutateAsync: createWorkout, isLoading} = useMutation({
@@ -136,7 +138,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             console.log(err);
             toast({
             title: "Could not create user",
-            description: `Could not create user ${err.response?.data} at this time try again or come back later😢`,
+            description: `Could not create workout ${err.response?.data} at this time try again or come back later😢`,
             })
         },
         onSuccess: () => {
