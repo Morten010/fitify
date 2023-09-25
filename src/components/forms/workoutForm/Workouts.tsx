@@ -2,10 +2,11 @@ import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card'
 import { Input } from '../../ui/input'
 import { Button } from '../../ui/button'
-import {AiFillDelete, AiOutlinePlus} from "react-icons/ai"
+import {AiOutlinePlus} from "react-icons/ai"
 import { DayProps, FormProps, WorkoutProps } from './WorkoutForm'
-import { Description } from '@radix-ui/react-toast'
 import { Textarea } from '../../ui/textarea'
+import { TikTokEmbed } from 'react-social-media-embed';
+import VideoType from '../../VideoType'
 
 type WorkoutsProps = {
     workoutState: {
@@ -30,7 +31,8 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     exercise: "",
                     description: "",
                     reps: "3",
-                    sets: "12"
+                    sets: "12",
+                    video: ""
                 }]
             }
         })
@@ -70,9 +72,10 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 return {
                     id: ex.id,
                     exercise: e.currentTarget.value,
-                     description: ex.description,
+                    description: ex.description,
                     reps: ex.reps,
                     sets: ex.sets,
+                    video: ex.video
                 }
             });
             return {
@@ -102,6 +105,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     description: e.currentTarget.value,
                     reps: ex.reps,
                     sets: ex.sets,
+                    video: ex.video
                 }
             });
             return {
@@ -130,6 +134,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     reps: e.currentTarget.value,
                     description: ex.description,
                     sets: ex.sets,
+                    video: ex.video
                 }
             });
             return {
@@ -155,7 +160,8 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     exercise: ex.exercise,
                     reps: ex.reps,
                     sets: e.currentTarget.value,
-                    description: ex.description
+                    description: ex.description,
+                    video: ex.video
                 }
             });
             return {
@@ -168,6 +174,35 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
             ...workoutState,
             days: sortedDays
         })
+    }
+
+    const handleVideo = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.currentTarget.value);
+        const sortedDays = workoutState.days.map(d => {
+            if(!d.exercises.includes(day)) return d
+            const newExercises = d.exercises.map(ex => {
+                if(ex.id !== day.id ) return ex
+                    
+                return {
+                    id: ex.id,
+                    exercise: ex.exercise,
+                    reps: ex.reps,
+                    sets: ex.sets,
+                    description: ex.description,
+                    video: e.currentTarget.value
+                }
+            });
+            return {
+                dayName: d.dayName,
+                exercises: newExercises,
+                id: d.id,
+            }
+        })
+        workoutDispatch({
+            ...workoutState,
+            days: sortedDays
+        })
+
     }
 
   return (
@@ -233,6 +268,15 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         onChange={(e) => handleSetsChange(workout, e)}
                         />
                     </div>
+                    <Input 
+                    placeholder='Video example link'
+                    value={workout.video}
+                    onChange={(e) =>  handleVideo(workout, e)}
+                    />
+                    {workout.video && (
+                        <VideoType video={workout.video} />
+                    )}
+
                     <Button
                     type="button"
                     onClick={() => deleteExercise(workout.id)}

@@ -21,6 +21,7 @@ export type WorkoutProps = {
     description: string
     reps: string
     sets: string
+    video: string
 }
 
 export type DayProps = {
@@ -85,6 +86,7 @@ type ExistingWorkout = {
             workoutDayId: number;
             reps: number;
             sets: number;
+            video: string | null
         }[];
     }[];
 }
@@ -119,7 +121,8 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                 exercise: "",
                 description: "",
                 reps: "3",
-                sets: "12"
+                sets: "12",
+                video: ""
             }]
         }]
     })
@@ -191,7 +194,8 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                             exercise: ex.name,
                             description: ex.description ? ex.description : "",
                             reps: ex.reps.toString(),
-                            sets: ex.sets.toString()
+                            sets: ex.sets.toString(),
+                            video: ex.video ? ex.video  : ""
                         }
                     })
                 }
@@ -399,14 +403,15 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                     );
 
                     if (!existsInWorkoutState) {
-                        const {name, description, reps, sets, ...rest} = ex
+                        const {name, description, reps, sets, video, ...rest} = ex
                         console.log(ex);
                         const formatted = {
                             ...rest,
                             exercise: name,
                             description: description ? description : "",
                             reps: reps.toString(),
-                            sets: sets.toString()
+                            sets: sets.toString(),
+                            video: video ? video : ""
                         }
                     deletedExercises.push(formatted);
                     }

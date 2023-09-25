@@ -46,7 +46,8 @@ export default function Days({workoutState, workoutDispatch,}: DaysProps) {
                         exercise: "",
                         description: "",
                         reps: "12",
-                        sets: "3"
+                        sets: "3",
+                        video: ""
                     }]
                 } 
             ]

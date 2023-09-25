@@ -54,7 +54,7 @@ export default async function EditPage({params}: EditPageProps) {
         >
             Edit workout
         </h1>
-        <WorkoutForm workout={workout!} />
+        {workout && <WorkoutForm workout={workout} />}
     </div>
   )
 }
