@@ -5,8 +5,9 @@ import { Button } from '../../ui/button'
 import {AiOutlinePlus} from "react-icons/ai"
 import { DayProps, FormProps, WorkoutProps } from './WorkoutForm'
 import { Textarea } from '../../ui/textarea'
-import { TikTokEmbed } from 'react-social-media-embed';
 import VideoType from '../../VideoType'
+import { toast } from '../../ui/use-toast'
+import { TiktokHow } from '../../TiktokHow'
 
 type WorkoutsProps = {
     workoutState: {
@@ -177,6 +178,27 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
     }
 
     const handleVideo = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
+        //checks if url is proper format
+        const url = e.currentTarget.value
+        if(url.includes("youtube")){
+        }else if(url.includes("tiktok")){
+            if(!url.includes("www")){
+                toast({
+                    title: "Wrong link format",
+                    variant: "destructive"
+                })
+                return null
+                // example link https://vm.tiktok.com/ZGJ7EjhUp/ 
+            }
+        }else{
+            toast({
+                    title: "Wrong link format",
+                    variant: "destructive"
+            })
+            return null
+        }
+
+        //set change
         console.log(e.currentTarget.value);
         const sortedDays = workoutState.days.map(d => {
             if(!d.exercises.includes(day)) return d
@@ -268,14 +290,19 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         onChange={(e) => handleSetsChange(workout, e)}
                         />
                     </div>
-                    <Input 
-                    placeholder='Video example link'
-                    value={workout.video}
-                    onChange={(e) =>  handleVideo(workout, e)}
-                    />
-                    {workout.video && (
-                        <VideoType video={workout.video} />
-                    )}
+                    <div
+                    className='flex gap-2'
+                    >
+                        <Input 
+                        placeholder='Video example link'
+                        value={workout.video}
+                        onChange={(e) =>  handleVideo(workout, e)}
+                        />
+                        <TiktokHow />
+                        {workout.video && (
+                            <VideoType video={workout.video} />
+                        )}
+                    </div>
 
                     <Button
                     type="button"
