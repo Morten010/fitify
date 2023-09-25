@@ -3,13 +3,10 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/src/components/ui/dialog"
-import { Input } from "@/src/components/ui/input"
-import { Label } from "@/src/components/ui/label"
 import { FaTiktok } from "react-icons/fa"
 import img1 from "@/src/assets/tikHow/tk1.jpg"
 import img2 from "@/src/assets/tikHow/tk2.jpg"

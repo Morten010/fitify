@@ -20,6 +20,7 @@ export async function POST(req: Request, res: Response) {
                         description: e.description,
                         reps: parseInt(e.reps),
                         sets: parseInt(e.sets),
+                        video: e.video
                     }
                 })
             }

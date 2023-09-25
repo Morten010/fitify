@@ -189,7 +189,10 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 })
                 return null
                 // example link https://vm.tiktok.com/ZGJ7EjhUp/ 
+                // cannot embed shorthand link
             }
+        }else if(!url){
+            
         }else{
             toast({
                     title: "Wrong link format",
@@ -299,10 +302,10 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         onChange={(e) =>  handleVideo(workout, e)}
                         />
                         <TiktokHow />
-                        {workout.video && (
-                            <VideoType video={workout.video} />
-                        )}
                     </div>
+                    {workout.video && (
+                        <VideoType video={workout.video} />
+                    )}
 
                     <Button
                     type="button"
