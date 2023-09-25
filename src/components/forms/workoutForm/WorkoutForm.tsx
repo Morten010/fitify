@@ -86,7 +86,7 @@ type ExistingWorkout = {
             workoutDayId: number;
             reps: number;
             sets: number;
-            video: string
+            video: string | null
         }[];
     }[];
 }
@@ -193,7 +193,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                             description: ex.description ? ex.description : "",
                             reps: ex.reps.toString(),
                             sets: ex.sets.toString(),
-                            video: ex.video
+                            video: ex.video ? ex.video  : ""
                         }
                     })
                 }
@@ -401,14 +401,15 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                     );
 
                     if (!existsInWorkoutState) {
-                        const {name, description, reps, sets, ...rest} = ex
+                        const {name, description, reps, sets, video, ...rest} = ex
                         console.log(ex);
                         const formatted = {
                             ...rest,
                             exercise: name,
                             description: description ? description : "",
                             reps: reps.toString(),
-                            sets: sets.toString()
+                            sets: sets.toString(),
+                            video: video ? video : ""
                         }
                     deletedExercises.push(formatted);
                     }

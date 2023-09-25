@@ -127,6 +127,7 @@ export const exercises = pgTable(
     description: varchar("description"),
     reps: integer("reps").notNull(),
     sets: integer("sets").notNull(),
+    video: varchar("video")
   }
 )
 export const exercisesRelations = relations(exercises, ({ one }) => ({
