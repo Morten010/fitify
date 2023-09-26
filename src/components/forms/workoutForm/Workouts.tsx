@@ -8,6 +8,7 @@ import { Textarea } from '../../ui/textarea'
 import VideoType from '../../VideoType'
 import { toast } from '../../ui/use-toast'
 import { TiktokHow } from '../../TiktokHow'
+import formatYtLink from '@/src/utils/formatYtLink'
 
 type WorkoutsProps = {
     workoutState: {
@@ -180,7 +181,35 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
     const handleVideo = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
         //checks if url is proper format
         const url = e.currentTarget.value
-        if(url.includes("youtube")){
+        if(url.includes("youtu")){
+            const newUrl = formatYtLink(url)
+            //set change
+            const sortedDays = workoutState.days.map(d => {
+                if(!d.exercises.includes(day)) return d
+                const newExercises = d.exercises.map(ex => {
+                    if(ex.id !== day.id ) return ex
+                        
+                    return {
+                        id: ex.id,
+                        exercise: ex.exercise,
+                        reps: ex.reps,
+                        sets: ex.sets,
+                        description: ex.description,
+                        video: newUrl
+                    }
+                });
+                return {
+                    dayName: d.dayName,
+                    exercises: newExercises,
+                    id: d.id,
+                }
+            })
+            workoutDispatch({
+                ...workoutState,
+                days: sortedDays
+            })
+            
+            return null
         }else if(url.includes("tiktok")){
             if(!url.includes("www")){
                 toast({
