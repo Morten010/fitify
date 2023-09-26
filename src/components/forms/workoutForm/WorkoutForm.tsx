@@ -355,7 +355,8 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                         ex.exercise !== exercise[0].name ||
                         ex.description !== exercise[0].description ||
                         parseInt(ex.reps) !== exercise[0].reps ||
-                        parseInt(ex.sets) !== exercise[0].sets
+                        parseInt(ex.sets) !== exercise[0].sets ||
+                        ex.video !== exercise[0].video
                     ){
                         changes.ChangedExercises.push(ex)
                     }
@@ -496,7 +497,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             {isLoadingUpdate && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Submit
+            {workout ? "Change" : "Submit"}
         </Button>
     </form>
   )

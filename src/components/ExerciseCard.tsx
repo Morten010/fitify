@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Exercises, exercises } from '../db/schema'
 import { Card } from './ui/card'
+import { TikTokEmbed } from 'react-social-media-embed'
 
 export default function ExerciseCard({exercise}: {exercise: Exercises}) {
     const [showMore, setShowMore] = useState(false)
@@ -44,7 +45,9 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
             className='mb-4'
             >
                 Video example <br />
-                <span className='text-sm opacity-60'>Coming soon</span>
+                {exercise.video ? <TikTokEmbed url={exercise.video} /> : (
+                    <span className='text-sm opacity-60'>none</span>
+                )}
             </p>
             <h2
             className='text-lg font-bold'

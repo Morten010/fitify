@@ -2,7 +2,6 @@ import { Changes } from '@/src/components/forms/workoutForm/WorkoutForm';
 import { db } from '@/src/db'
 import { exercises, workoutDays, workouts } from '@/src/db/schema'
 import { eq } from 'drizzle-orm';
-import ws from 'ws'
 
 export async function PUT(req: Request, res: Response) {
     const {
@@ -32,6 +31,7 @@ export async function PUT(req: Request, res: Response) {
                     name: ex.exercise,
                     reps: parseInt(ex.reps),
                     sets: parseInt(ex.sets),
+                    video: ex.video,
                     workoutDayId: workoutDay[0].id,
                     description: ex.description,
                 })
@@ -76,6 +76,7 @@ export async function PUT(req: Request, res: Response) {
                 description: ex.description,
                 reps: parseInt(ex.reps),
                 sets: parseInt(ex.sets),
+                video: ex.video
             }).where(eq(exercises.id, ex.id))
         })
         await Promise.all(newChangedExercises)
@@ -97,6 +98,7 @@ export async function PUT(req: Request, res: Response) {
                 description: ex.description,
                 reps: parseInt(ex.reps),
                 sets: parseInt(ex.sets),
+                video: ex.video,
                 workoutDayId: ex.dayId,
             })
         })
