@@ -7,7 +7,7 @@ export default function VideoType({video}: {video: string}) {
             <div className='flex  justify-center'>
                 <TikTokEmbed 
                 url={video} 
-                width={325}
+                width={320}
                 height={570}
                 />
             </div>
