@@ -34,7 +34,9 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
             <p
             className='mb-4'
             >
-                {exercise.description ? exercise.description : "none"}
+                {exercise.description ? exercise.description : (
+                    <span className='text-sm opacity-60'>none</span>
+                )}
             </p>
             <h2
             className='text-lg font-bold'
@@ -44,8 +46,17 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
             <p
             className='mb-4'
             >
-                Video example <br />
-                {exercise.video ? <TikTokEmbed url={exercise.video} /> : (
+                {exercise.video ? (
+                    <div
+                    className='w-full grid place-content-center'
+                    >
+                        <TikTokEmbed 
+                        url={exercise.video} 
+                        width={320}
+                        height={570}
+                        />
+                    </div>
+                ) : (
                     <span className='text-sm opacity-60'>none</span>
                 )}
             </p>
