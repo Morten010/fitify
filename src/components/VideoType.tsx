@@ -5,7 +5,11 @@ export default function VideoType({video}: {video: string}) {
     if(video.includes("tiktok")){
         return (
             <div className='flex  justify-center'>
-                <TikTokEmbed url={video} width={325} />
+                <TikTokEmbed 
+                url={video} 
+                width={325}
+                height={570}
+                />
             </div>
         )
     }else if(video.includes("youtube")){

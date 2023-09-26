@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Exercises, exercises } from '../db/schema'
 import { Card } from './ui/card'
 import { TikTokEmbed } from 'react-social-media-embed'
+import VideoType from './VideoType'
 
 export default function ExerciseCard({exercise}: {exercise: Exercises}) {
     const [showMore, setShowMore] = useState(false)
@@ -47,15 +48,7 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
             className='mb-4'
             >
                 {exercise.video ? (
-                    <div
-                    className='w-full grid place-content-center'
-                    >
-                        <TikTokEmbed 
-                        url={exercise.video} 
-                        width={320}
-                        height={570}
-                        />
-                    </div>
+                    <VideoType video={exercise.video} />
                 ) : (
                     <span className='text-sm opacity-60'>none</span>
                 )}
