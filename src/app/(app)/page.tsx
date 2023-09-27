@@ -20,6 +20,7 @@ export default function Home() {
       const {data} = await axios.get(`/api/workouts/find?id=${user.data?.user.id}`)
       return data
     },
+    queryKey: ['Home'],
     enabled: !!user.data
   })
   

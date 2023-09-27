@@ -38,6 +38,7 @@ export default function page() {
             
           return data
         },
+        queryKey: ['Community'],
     })
 
     if(isFetching){

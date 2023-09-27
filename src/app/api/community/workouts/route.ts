@@ -27,7 +27,6 @@ export const GET = async (req: Request, res: Response) => {
     
     console.log(results);
     
-    
     if(!results) return new Response("Something went wrong trying to get the data", {status: 400})
 
     return new Response(JSON.stringify(results))
