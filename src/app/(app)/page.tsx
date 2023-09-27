@@ -9,6 +9,7 @@ import {ImFilesEmpty} from "react-icons/im"
 import WorkoutCardSkeleton from '@/src/components/skeletons/WorkoutCardSkeleton'
 import Image from 'next/image'
 import Link from 'next/link'
+import PublicBanner from '@/src/components/public/PublicBanner'
 
 export default function Home() {
   const user = useSession()
@@ -27,14 +28,24 @@ export default function Home() {
     className='p-3'
     >
       <h1
-      className='text-3xl font-bold md:text-5xl lg:leading-[1.1] text-foreground mb-4'
+      className='text-3xl font-semibold md:text-5xl lg:leading-[1.1] text-foreground mb-4'
       >
         Welcome back👋 <br />
         {user.data ? user.data.user.name : "..."}
       </h1>
+      <Link
+      href="/community"
+      >
+        <PublicBanner title='Try a community workout' />
+      </Link>
       <section
       className='w-full flex flex-col gap-3'
       >
+        <h2
+        className='text-2xl font-semibold'
+        >
+          You're workouts
+        </h2>
         {!isSuccess && (
           <>
             <WorkoutCardSkeleton />
