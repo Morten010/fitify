@@ -15,7 +15,11 @@ export default function VideoType({video}: {video: string}) {
     }else if(video.includes("youtube")){
         return (
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <YouTubeEmbed url={video} width={325} height={220} />
+                <YouTubeEmbed 
+                url={video} 
+                width={325} 
+                height={220} 
+                />
             </div>
         )
     } else {

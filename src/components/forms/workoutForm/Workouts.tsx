@@ -316,7 +316,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         onChange={(e) => handleRepsChange(workout, e)}
                         />
                         <Input 
-                        type='number'
+                        type='text'
                         placeholder='sets'
                         value={workout.sets}
                         onChange={(e) => handleSetsChange(workout, e)}

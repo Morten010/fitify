@@ -30,7 +30,7 @@ export async function PUT(req: Request, res: Response) {
                 await db.insert(exercises).values({
                     name: ex.exercise,
                     reps: parseInt(ex.reps),
-                    sets: parseInt(ex.sets),
+                    sets: ex.sets,
                     video: ex.video,
                     workoutDayId: workoutDay[0].id,
                     description: ex.description,
@@ -75,7 +75,7 @@ export async function PUT(req: Request, res: Response) {
                 name: ex.exercise,
                 description: ex.description,
                 reps: parseInt(ex.reps),
-                sets: parseInt(ex.sets),
+                sets: ex.sets,
                 video: ex.video
             }).where(eq(exercises.id, ex.id))
         })
@@ -97,7 +97,7 @@ export async function PUT(req: Request, res: Response) {
                 name: ex.exercise,
                 description: ex.description,
                 reps: parseInt(ex.reps),
-                sets: parseInt(ex.sets),
+                sets: ex.sets,
                 video: ex.video,
                 workoutDayId: ex.dayId,
             })

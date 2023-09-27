@@ -4,6 +4,7 @@ import { Exercises, exercises } from '../db/schema'
 import { Card } from './ui/card'
 import { TikTokEmbed } from 'react-social-media-embed'
 import VideoType from './VideoType'
+import TrackWeights from './TrackWeights'
 
 export default function ExerciseCard({exercise}: {exercise: Exercises}) {
     const [showMore, setShowMore] = useState(false)
@@ -59,13 +60,7 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
                 Weights
             </h2>
             <p>Keep track of how much you have lifted each workout.</p>
-            <ul>
-                <ul>
-                    <li className='text-sm opacity-60'>
-                        Coming soon...
-                    </li>
-                </ul>
-            </ul>
+            <TrackWeights exerciseId={exercise.id} />
         </div>}
     </Card>
   )

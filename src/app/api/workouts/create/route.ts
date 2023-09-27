@@ -58,7 +58,7 @@ export async function POST(req: Request, res: Response) {
             const newExercise = await db.insert(exercises).values({
                 name: e.exercise,
                 reps: parseInt(e.reps),
-                sets: parseInt(e.sets),
+                sets: e.sets,
                 description: e.description,
                 workoutDayId: newWorkoutDay[0].id,
             })

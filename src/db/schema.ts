@@ -126,18 +126,35 @@ export const exercises = pgTable(
     name: text("name").notNull(),
     description: varchar("description"),
     reps: integer("reps").notNull(),
-    sets: integer("sets").notNull(),
+    sets: text("sets").notNull(),
     video: varchar("video")
   }
 )
-export const exercisesRelations = relations(exercises, ({ one }) => ({
+export const exercisesRelations = relations(exercises, ({ one, many }) => ({
 	workoutDay: one(workoutDays, {
 		fields: [exercises.workoutDayId],
 		references: [workoutDays.id],
 	}),
-  
+  weights: many(weights)
 }));
 
 export type Exercises = InferModel<typeof exercises>;
 
+export const weights = pgTable(
+  "weights", 
+  {
+    id: serial("id").primaryKey().notNull(),
+    weight: integer("weight").notNull(),
+    exerciseId: integer("exerciseId").notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+  }
+)
 
+export const weightsRelations = relations(weights, ({ one }) => ({
+	exercise: one(exercises, {
+		fields: [weights.exerciseId],
+		references: [exercises.id],
+	}),
+}));
+
+export type Weights = InferModel<typeof weights>;
