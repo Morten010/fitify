@@ -12,6 +12,7 @@ import axios, { AxiosError } from 'axios'
 import { flatten, minLength, object, parse, string } from 'valibot'
 import { useRouter } from 'next/navigation'
 import { Icons } from '../../icons'
+import { Checkbox } from '@/src/components/ui/checkbox'
 
 
 // props
@@ -33,6 +34,7 @@ export type DayProps = {
 export type FormProps = {
     title: string,
     description: string
+    public: boolean
     days: DayProps[]
 }
 
@@ -75,6 +77,7 @@ type ExistingWorkout = {
     name: string;
     description: string;
     userId: string;
+    public: boolean
     days: {
         id: number;
         workoutId: number | null;
@@ -99,6 +102,7 @@ export type Changes = {
     newDays: DayProps[];
     nameChange: string | undefined;
     descChange: string | undefined;
+    publicChange: boolean | undefined;
     daysChange: DayProps[];
     deletedDays: number[]
     ChangedExercises: WorkoutProps[];
@@ -111,8 +115,9 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
     const [workoutState, workoutDispatch] = useReducer((prev: FormProps, next: FormProps) => {
         return {...prev, ...next}
     }, {
-       title: "",
-       description: "",
+        title: "",
+        description: "",
+        public: false,
         days: [{
             id: Date.now(),
             dayName: "legs",
@@ -202,6 +207,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             }),
             description: workout.description,
             title: workout.name ,
+            public: workout.public
         })
       }
     }, [])
@@ -279,6 +285,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             newDays: [],
             nameChange: undefined,
             descChange: undefined,
+            publicChange: undefined,
             daysChange: [],
             ChangedExercises: [],
             newExercises: [],
@@ -294,9 +301,11 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             }
         })
         
-        // check for changes in workout Description
+        // check for changes in workout Description, name and public
         changes.nameChange = workout?.name !== workoutState.title ? workoutState.title : undefined;
         changes.descChange = workout?.description !== workoutState.description ? workoutState.description : undefined
+        changes.publicChange = workout?.public !== workoutState.public ? workoutState.public : undefined
+        
 
         // Check for changes in existing days
         workout?.days.forEach((day) => {
@@ -423,6 +432,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
         if(changes.newDays[0] ||
             changes.nameChange !== undefined ||
             changes.descChange !== undefined ||
+            changes.publicChange !== undefined ||
             changes.daysChange[0] ||
             changes.ChangedExercises[0] ||
             changes.newExercises[0] ||
@@ -470,6 +480,24 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                     description: e.currentTarget.value
                 })}
                 />
+                <div
+                className='flex gap-2'
+                >
+                    <Checkbox 
+                    id="public" 
+                    checked={workoutState.public}
+                    onCheckedChange={(e) => workoutDispatch({
+                        ...workoutState,
+                        public: !workoutState.public
+                    })}
+                    />
+                    <label
+                        htmlFor="public"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                        Make it public
+                    </label>
+                </div>
             </CardContent>
         </Card>
         

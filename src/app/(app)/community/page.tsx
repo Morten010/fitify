@@ -8,8 +8,6 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
-export const revalidate = 0
-
 export type CommunityWorkoutProps = {
     id: number;
     name: string;
@@ -32,10 +30,9 @@ export default function page() {
     const {data: workouts, isFetching, refetch, isFetched, isSuccess, isError} = useQuery({
         queryFn: async () => {
           
-          const {data} = await axios.get(`api/community/workouts`)
-            console.log(data);
+        const {data} = await axios.get(`api/community/workouts`)
+        console.log(data);
             
-    
           return data
         },
     })

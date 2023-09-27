@@ -13,7 +13,8 @@ export async function PUT(req: Request, res: Response) {
         nameChange,
         newExercises,
         workoutId,
-        deletedDays
+        deletedDays,
+        publicChange
     }: Changes & {
         workoutId: number
     } = await req.json()
@@ -42,10 +43,26 @@ export async function PUT(req: Request, res: Response) {
     }
 
     //if name or desc changed update it
-    if(nameChange && descChange){
+    if(nameChange && descChange && publicChange){
         await db.update(workouts).set({
             name: nameChange,
             description: descChange,
+            public: publicChange
+        }).where(eq(workouts.id, workoutId))
+    }else if(nameChange && descChange){
+        await db.update(workouts).set({
+            name: nameChange,
+            description: descChange,
+        }).where(eq(workouts.id, workoutId))
+    }else if(nameChange && publicChange){
+        await db.update(workouts).set({
+            name: nameChange,
+            public: publicChange
+        }).where(eq(workouts.id, workoutId))
+    }else if(publicChange && descChange){
+        await db.update(workouts).set({
+            description: descChange,
+            public: publicChange
         }).where(eq(workouts.id, workoutId))
     }else if(nameChange){
         await db.update(workouts).set({
@@ -54,6 +71,10 @@ export async function PUT(req: Request, res: Response) {
     }else if(descChange){
         await db.update(workouts).set({
             description: descChange,
+        }).where(eq(workouts.id, workoutId))
+    }else if(publicChange){
+        await db.update(workouts).set({
+            public: publicChange
         }).where(eq(workouts.id, workoutId))
     }
 

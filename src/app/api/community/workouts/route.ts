@@ -21,7 +21,8 @@ export const GET = async (req: Request, res: Response) => {
                 }
             },
             days: true
-        }
+        },
+        where: eq(workouts.public, true)
     })
     
     

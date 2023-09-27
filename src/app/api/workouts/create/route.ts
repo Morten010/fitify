@@ -33,6 +33,7 @@ export async function POST(req: Request, res: Response) {
         name: filteredBody.title,
         description: filteredBody.description,
         userId: user?.user.id,
+        public: filteredBody.public
     }).returning({id: workouts.id})
 
     if(!newWorkout){
