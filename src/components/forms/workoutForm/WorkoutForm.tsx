@@ -85,7 +85,7 @@ type ExistingWorkout = {
             description: string | null;
             workoutDayId: number;
             reps: number;
-            sets: number;
+            sets: string;
             video: string | null
         }[];
     }[];
@@ -355,7 +355,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                         ex.exercise !== exercise[0].name ||
                         ex.description !== exercise[0].description ||
                         parseInt(ex.reps) !== exercise[0].reps ||
-                        parseInt(ex.sets) !== exercise[0].sets ||
+                        ex.sets !== exercise[0].sets ||
                         ex.video !== exercise[0].video
                     ){
                         changes.ChangedExercises.push(ex)
