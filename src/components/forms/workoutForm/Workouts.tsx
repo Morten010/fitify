@@ -14,6 +14,7 @@ type WorkoutsProps = {
     workoutState: {
         title: string;
         description: string;
+        public: boolean;
         days: DayProps[];
     },
     workoutDispatch: React.Dispatch<FormProps>,
