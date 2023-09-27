@@ -21,7 +21,11 @@ Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm
 
 ## Features to be implemented
 
-- [x] make it a pwa
-- [ ] keep track of how much you lifted last time with weights
-- [ ] keep track of you're weight
-- [ ] add youtube examples on you're workout
+- [x] Make it a pwa
+- [x] Keep track of how much you lifted last time with weights
+- [x] Keep track of you're weight a chart
+- [x] Add youtube and tiktok examples on you're workout
+- [ ] Keep track of you're weight
+- [ ] Make workouts public and make them copyable
+- [ ] add public profiles
+- [ ] add recipes or posts
