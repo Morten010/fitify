@@ -85,7 +85,7 @@ export default function page() {
                             {w.name}
                         </CardTitle>
                         <CardDescription>
-                            by: {w.user.name}
+                            by: {w.user.name ? w.user.name : "unknown"}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>

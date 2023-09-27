@@ -25,6 +25,8 @@ export const GET = async (req: Request, res: Response) => {
         where: eq(workouts.public, true)
     })
     
+    console.log(results);
+    
     
     if(!results) return new Response("Something went wrong trying to get the data", {status: 400})
 
