@@ -101,7 +101,7 @@ export default function TrackWeights({exerciseId} : {
           Last lifts
         </h4>
         <ul>
-          {weights && isSuccess && weights.map((w: Weights) => (
+          {weights && isSuccess && !!weights[0] && weights.map((w: Weights) => (
             <li
             className='flex justify-between py-2 border-y border-border'
             >
@@ -122,7 +122,7 @@ export default function TrackWeights({exerciseId} : {
         >
             Show more
         </Button>
-        {weights && isSuccess && <ExerciseWeightChart weights={weights} />}
+        {weights && isSuccess &&  !!weights[0] && <ExerciseWeightChart weights={weights} />}
       </div>
     </div>
   )
