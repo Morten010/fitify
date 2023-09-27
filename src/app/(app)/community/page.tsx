@@ -8,6 +8,9 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export type CommunityWorkoutProps = {
     id: number;
     name: string;

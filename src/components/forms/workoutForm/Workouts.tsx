@@ -299,12 +299,13 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     placeholder='exercise name'
                     value={workout.exercise}
                     onChange={(e) => handleNameChange(workout, e)}
+                    className='text-base'
                     />
                     <Textarea 
                     placeholder='description'
                     value={workout.description} 
                     rows={2}
-                    className='resize-none'
+                    className='resize-none text-base'
                     onChange={(e) => handleDescChange(workout , e)}
                     />
                     <div
@@ -315,12 +316,14 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         type='number'
                         value={workout.reps}
                         onChange={(e) => handleRepsChange(workout, e)}
+                        className='text-base'
                         />
                         <Input 
                         type='text'
                         placeholder='sets'
                         value={workout.sets}
                         onChange={(e) => handleSetsChange(workout, e)}
+                        className='text-base'
                         />
                     </div>
                     <div
@@ -330,6 +333,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         placeholder='Video example link'
                         value={workout.video}
                         onChange={(e) =>  handleVideo(workout, e)}
+                        className='text-base'
                         />
                         <TiktokHow />
                     </div>

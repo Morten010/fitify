@@ -469,10 +469,11 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
                     ...workoutState,
                     title: e.currentTarget.value
                 })}
+                className='text-base'
                 />
                 <Textarea
                 placeholder='description'
-                className='resize-none'
+                className='resize-none text-base'
                 rows={5}
                 value={workoutState.description}
                 onChange={(e) => workoutDispatch({

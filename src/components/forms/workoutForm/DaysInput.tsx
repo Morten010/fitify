@@ -20,7 +20,7 @@ export default function DaysInput({day, setState, deleteDay} : DaysProps) {
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
       type="text" 
-      className='bg-transparent w-[100px] focus:outline-none'
+      className='bg-transparent w-[100px] focus:outline-none text-base'
       />
       <div
       className='flex'
