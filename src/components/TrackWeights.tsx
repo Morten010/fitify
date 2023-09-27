@@ -122,7 +122,7 @@ export default function TrackWeights({exerciseId} : {
         >
             Show more
         </Button>
-        {weights && isSuccess &&  !!weights[0] && <ExerciseWeightChart weights={weights} />}
+        {weights && weights.length >= 3 && <ExerciseWeightChart weights={weights} />}
       </div>
     </div>
   )

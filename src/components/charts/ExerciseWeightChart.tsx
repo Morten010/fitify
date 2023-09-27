@@ -68,10 +68,12 @@ export default function ExerciseWeightChart({
             dataKey="date"
             axisLine={false}
             tickLine={false}
+            type='category'
+            tickCount={3}
             tickFormatter={str => new Date(str).toLocaleDateString([], {
                 day : 'numeric', 
                 month: 'short', 
-              })}
+            })}
             />
 
             <YAxis 

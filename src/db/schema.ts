@@ -6,6 +6,8 @@ import {
   integer,
   varchar,
   serial,
+  pgEnum,
+  boolean,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { InferModel, relations } from "drizzle-orm";
@@ -82,6 +84,7 @@ export const workouts = pgTable(
     id: serial("id").primaryKey().notNull(),
     name: text("text").notNull(),
     description: varchar('description', { length: 256 }).notNull(),
+    public: boolean("public").default(false),
     userId: text("userId").notNull()
       .references(() => users.id, { onDelete: "cascade" }),
   }
@@ -145,7 +148,8 @@ export const weights = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     weight: integer("weight").notNull(),
-    exerciseId: integer("exerciseId").notNull(),
+    exerciseId: integer("exerciseId").notNull()
+      .references(() => exercises.id, { onDelete: "cascade" }),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
   }
 )
