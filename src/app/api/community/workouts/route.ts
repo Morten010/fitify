@@ -11,19 +11,19 @@ export const GET = async (req: Request, res: Response) => {
     // console.log(amount);
 
     const results = await db.query.workouts.findMany({
-        orderBy: [desc(weights.id)],
-        limit: 20,
+        where: eq(workouts.public, true),
+        limit: 10,
         with: {
             user: {
                 columns: {
+                    id: true,
                     name: true,
-                    id: true
                 }
             },
-            days: true
+            days: true,
         },
-        where: eq(workouts.public, true)
     })
+    
     
     console.log(results);
     
