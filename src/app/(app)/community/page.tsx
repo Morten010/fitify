@@ -36,7 +36,7 @@ export default function page() {
         const {data} = await axios.get(`api/community/workouts`)
           return data
         },
-        cacheTime: 1000,
+        cacheTime: 0,
         queryKey: ['Community'],
     })
 
