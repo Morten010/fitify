@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav
-    className='p-3 border-b shadow-sm'
+    className='p-3 border-b shadow-sm sticky top-0 z-50 bg-background'
     >
         <div
         className='flex gap-2 justify-between mx-auto max-w-screen-lg'
