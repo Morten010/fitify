@@ -62,6 +62,7 @@ export async function POST(req: Request, res: Response) {
                 sets: e.sets,
                 description: e.description,
                 workoutDayId: newWorkoutDay[0].id,
+                video: e.video
             })
             if(!newExercise){
                 const deleteWorkout = db.delete(workouts).where(eq(workouts.id, newWorkout[0].id))
