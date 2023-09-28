@@ -1,12 +1,9 @@
-"use client"
-import Spinner from '@/src/components/Spinner'
 import CommunityWorkoutCard from '@/src/components/public/CommunityWorkoutCard'
 import PublicBanner from '@/src/components/public/PublicBanner'
-import WorkoutCardSkeleton from '@/src/components/skeletons/WorkoutCardSkeleton'
-import axios from 'axios'
+import { db } from '@/src/db'
+import { workouts } from '@/src/db/schema'
+import { desc, eq } from 'drizzle-orm'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { useQuery } from 'react-query'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -28,19 +25,23 @@ export type CommunityWorkoutProps = {
     }[]
 }
 
-export default function page() {
-    const [data, setData] = useState("")
-    const {data: workouts, isFetching, refetch, isFetched, isSuccess, isError} = useQuery({
-        queryFn: async () => {
-          
-        const {data} = await axios.get(`api/community/workouts`)
-          return data
-        },
-        cacheTime: 0,
-        queryKey: ['Community'],
+export default async function page() {
+    const results = await db.query.workouts.findMany({
+      where: eq(workouts.public, true),
+      limit: 10,
+      orderBy: [desc(workouts.id)],
+      with: {
+          user: {
+              columns: {
+                  id: true,
+                  name: true,
+              }
+          },
+          days: true,
+      },
     })
 
-    if(isError){
+    if(!results){
         return (
             <div
             className='text-center h-[60vh] grid place-content-center text-foreground/70'
@@ -68,19 +69,9 @@ export default function page() {
         <div
         className='flex flex-col gap-2'
         >
-            {workouts && workouts !== 0 && workouts.map((w: CommunityWorkoutProps) => (
+            {results.map((w: CommunityWorkoutProps) => (
                 <CommunityWorkoutCard w={w} />
             ))}
-            {isFetching && (
-                <>
-                    <WorkoutCardSkeleton />
-                    <WorkoutCardSkeleton />
-                    <WorkoutCardSkeleton />
-                    <WorkoutCardSkeleton />
-                    <WorkoutCardSkeleton />
-                    <WorkoutCardSkeleton />
-                </>
-            )}
         </div>
     </div>
 
