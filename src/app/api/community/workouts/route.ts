@@ -13,6 +13,7 @@ export const GET = async (req: Request, res: Response) => {
     const results = await db.query.workouts.findMany({
         where: eq(workouts.public, true),
         limit: 10,
+        orderBy: [desc(workouts.id)],
         with: {
             user: {
                 columns: {
