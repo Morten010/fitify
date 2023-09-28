@@ -60,8 +60,6 @@ export default function page({params}: {
         deleteWorkout()
       }
 
-    
-    
   return (
     <div
     className='p-3 relative'
@@ -78,16 +76,18 @@ export default function page({params}: {
             <div
             className='flex gap-2'
             >
-              <Link
-              href={`/edit/${id}`}
-              className={cn(
-                buttonVariants({ 
-                  variant: "outline", 
-                  size: "icon"
-                })
-              )}>
+              {!workout.isCopied && (
+                <Link
+                href={`/edit/${id}`}
+                className={cn(
+                  buttonVariants({ 
+                    variant: "outline", 
+                    size: "icon"
+                  })
+                )}>
                   <AiFillEdit />
-              </Link>
+                </Link>
+              )}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="destructive" size="icon">

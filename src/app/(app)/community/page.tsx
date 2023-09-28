@@ -1,8 +1,8 @@
 "use client"
 import Spinner from '@/src/components/Spinner'
-import { Icons } from '@/src/components/icons'
+import CommunityWorkoutCard from '@/src/components/public/CommunityWorkoutCard'
 import PublicBanner from '@/src/components/public/PublicBanner'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/src/components/ui/card'
+import WorkoutCardSkeleton from '@/src/components/skeletons/WorkoutCardSkeleton'
 import axios from 'axios'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -34,22 +34,11 @@ export default function page() {
         queryFn: async () => {
           
         const {data} = await axios.get(`api/community/workouts`)
-        console.log(data);
           return data
         },
-        cacheTime: 0,
+        cacheTime: 1000,
         queryKey: ['Community'],
     })
-
-    if(isFetching){
-        return(
-            <div
-            className='w-full h-[80vh] grid place-content-center'
-            >
-                <Spinner />
-            </div>
-        )
-    }
 
     if(isError){
         return (
@@ -71,9 +60,6 @@ export default function page() {
         )
     }
 
-    console.log(workouts);
-    
-
   return (
     <div
     className='p-3'
@@ -83,35 +69,18 @@ export default function page() {
         className='flex flex-col gap-2'
         >
             {workouts && workouts !== 0 && workouts.map((w: CommunityWorkoutProps) => (
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            {w.name}
-                        </CardTitle>
-                        <CardDescription>
-                            by: {w.user?.name}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        {w.description}
-                        <br />
-                        <span
-                        className='font-semibold text-lg mt-4 mb-2'
-                        >
-                            Days:
-                        </span>
-                        <ul
-                        className='list-disc list-inside'
-                        >
-                            {w.days.map(d => (
-                                <li>
-                                    {d.dayName}
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
+                <CommunityWorkoutCard w={w} />
             ))}
+            {isFetching && (
+                <>
+                    <WorkoutCardSkeleton />
+                    <WorkoutCardSkeleton />
+                    <WorkoutCardSkeleton />
+                    <WorkoutCardSkeleton />
+                    <WorkoutCardSkeleton />
+                    <WorkoutCardSkeleton />
+                </>
+            )}
         </div>
     </div>
 

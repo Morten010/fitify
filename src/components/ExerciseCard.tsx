@@ -6,7 +6,7 @@ import { TikTokEmbed } from 'react-social-media-embed'
 import VideoType from './VideoType'
 import TrackWeights from './TrackWeights'
 
-export default function ExerciseCard({exercise}: {exercise: Exercises}) {
+export default function ExerciseCard({exercise, publicView = false}: {exercise: Exercises, publicView?: boolean}) {
     const [showMore, setShowMore] = useState(false)
     
   return (
@@ -59,8 +59,18 @@ export default function ExerciseCard({exercise}: {exercise: Exercises}) {
             >
                 Weights
             </h2>
-            <p>Keep track of how much you have lifted each workout.</p>
-            <TrackWeights exerciseId={exercise.id} />
+            {!publicView ? (
+                <>
+                    <p>
+                        Keep track of how much you have lifted each workout.
+                    </p>
+                    <TrackWeights exerciseId={exercise.id} />
+                </>
+            ): (
+                <span className='text-sm opacity-60'>
+                    Add to you're workout to track weights
+                </span>
+            )}
         </div>}
     </Card>
   )

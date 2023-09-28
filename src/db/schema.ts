@@ -85,6 +85,7 @@ export const workouts = pgTable(
     name: text("text").notNull(),
     description: varchar('description', { length: 256 }).notNull(),
     public: boolean("public").default(false).notNull(),
+    isCopied: boolean("isCopied").default(false).notNull(),
     userId: text("userId").notNull()
       .references(() => users.id, { onDelete: "cascade" }),
   }
