@@ -3,13 +3,13 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
-import { Workouts } from '@/src/db/schema'
 import WorkoutCard from '@/src/components/WorkoutCard'
 import {ImFilesEmpty} from "react-icons/im"
 import WorkoutCardSkeleton from '@/src/components/skeletons/WorkoutCardSkeleton'
 import Image from 'next/image'
 import Link from 'next/link'
 import PublicBanner from '@/src/components/public/PublicBanner'
+import { SelectWorkouts } from '@/src/db/schema'
 
 export default function Home() {
   const user = useSession()
@@ -53,8 +53,8 @@ export default function Home() {
             <WorkoutCardSkeleton />
             <WorkoutCardSkeleton />
           </>
-        )}
-        {isSuccess && Array.isArray(workouts) && workouts.map((w: Workouts) => (
+        )} 
+        {isSuccess && Array.isArray(workouts) && workouts.map((w: SelectWorkouts) => (
           <WorkoutCard key={w.id} workout={w} />
         ))}
 
