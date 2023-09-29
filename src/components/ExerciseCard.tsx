@@ -1,12 +1,12 @@
 "use client"
 import React, { useState } from 'react'
-import { Exercises, exercises } from '../db/schema'
 import { Card } from './ui/card'
 import { TikTokEmbed } from 'react-social-media-embed'
 import VideoType from './VideoType'
 import TrackWeights from './TrackWeights'
+import { SelectExercises } from '../db/schema'
 
-export default function ExerciseCard({exercise, publicView = false}: {exercise: Exercises, publicView?: boolean}) {
+export default function ExerciseCard({exercise, publicView = false}: {exercise: SelectExercises, publicView?: boolean}) {
     const [showMore, setShowMore] = useState(false)
     
   return (

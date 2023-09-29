@@ -1,9 +1,9 @@
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/src/components/ui/card'
-import { WorkoutDays, Workouts } from '../db/schema'
 import Link from 'next/link'
+import { SelectWorkouts } from '../db/schema'
 
-export default function WorkoutCard({workout}: {workout: Workouts}) {
+export default function WorkoutCard({workout}: {workout: SelectWorkouts}) {
   return (
    <Link
    href={`/workouts/${workout.id}`}

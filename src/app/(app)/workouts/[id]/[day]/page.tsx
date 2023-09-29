@@ -2,7 +2,7 @@
 import ExerciseCard from '@/src/components/ExerciseCard';
 import DaySkeleton from '@/src/components/skeletons/DaySkeleton';
 import { Card, CardHeader } from '@/src/components/ui/card';
-import { Exercises } from '@/src/db/schema';
+import { SelectExercises } from '@/src/db/schema';
 import axios from 'axios';
 import React from 'react'
 import { useQuery } from 'react-query';
@@ -35,7 +35,7 @@ export default function Page({params}:{params: {
         {isSuccess && data && data.dayName}
       </h1>
       <div className='flex flex-col gap-3'>
-        {isSuccess && Array.isArray(data.exercises) && data.exercises.map((e: Exercises) => (
+        {isSuccess && Array.isArray(data.exercises) && data.exercises.map((e: SelectExercises) => (
           <ExerciseCard key={e.id} exercise={e} />
         ))}
 

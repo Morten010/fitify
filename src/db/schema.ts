@@ -28,8 +28,8 @@ export const usersRelations = relations(users, ({ many }) => ({
 	workouts: many(workouts),
 }));
 
-type SelectUser = typeof users.$inferSelect;
-type InsertUser = typeof users.$inferInsert;
+export type SelectUser = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;
 
 //accounts
 export const accounts = mysqlTable(
@@ -55,8 +55,8 @@ export const accounts = mysqlTable(
   })
 );
 
-type SelectAccounts = typeof accounts.$inferSelect;
-type InsertAccounts = typeof accounts.$inferInsert;
+export type SelectAccounts = typeof accounts.$inferSelect;
+export type InsertAccounts = typeof accounts.$inferInsert;
 
 //session
 export const sessions = mysqlTable("session", {
@@ -79,8 +79,8 @@ export const verificationTokens = mysqlTable(
   })
 );
 
-type SelectVerificationToken = typeof verificationTokens.$inferSelect;
-type InsertVerificationToken = typeof verificationTokens.$inferInsert;
+export type SelectVerificationToken = typeof verificationTokens.$inferSelect;
+export type InsertVerificationToken = typeof verificationTokens.$inferInsert;
 
 // workouts
 export const workouts = mysqlTable(
@@ -103,8 +103,8 @@ export const workoutsRelations = relations(workouts, ({ one, many }) => ({
   days: many(workoutDays),
 }));
 
-type SelectWorkouts = typeof workouts.$inferSelect;
-type InsertWorkouts = typeof workouts.$inferInsert;
+export type SelectWorkouts = typeof workouts.$inferSelect;
+export type InsertWorkouts = typeof workouts.$inferInsert;
 
 export const workoutDays = mysqlTable(
   "workoutDays", 
@@ -123,8 +123,8 @@ export const workoutDaysRelations = relations(workoutDays, ({ one, many }) => ({
   exercises: many(exercises)
 }));
 
-type SelectWorkoutDays = typeof workoutDays.$inferSelect;
-type InsertWorkoutDays = typeof workoutDays.$inferInsert;
+export type SelectWorkoutDays = typeof workoutDays.$inferSelect;
+export type InsertWorkoutDays = typeof workoutDays.$inferInsert;
 
 export const exercises = mysqlTable(
   "exercises", 
@@ -146,8 +146,8 @@ export const exercisesRelations = relations(exercises, ({ one, many }) => ({
   weights: many(weights)
 }));
 
-type SelectExercises = typeof exercises.$inferSelect;
-type InsertExercises = typeof exercises.$inferInsert;
+export type SelectExercises = typeof exercises.$inferSelect;
+export type InsertExercises = typeof exercises.$inferInsert;
 
 export const weights = mysqlTable(
   "weights", 
@@ -166,6 +166,6 @@ export const weightsRelations = relations(weights, ({ one }) => ({
 	}),
 }));
 
-type SelectWeights = typeof weights.$inferSelect;
-type InsertWeights = typeof weights.$inferInsert;
+export type SelectWeights = typeof weights.$inferSelect;
+export type InsertWeights = typeof weights.$inferInsert;
 

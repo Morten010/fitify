@@ -4,7 +4,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button, buttonVariants } from '@/src/components/ui/button'
 import { Card, CardHeader, CardTitle } from '@/src/components/ui/card'
 import { toast } from '@/src/components/ui/use-toast'
-import { WorkoutDays,} from '@/src/db/schema'
+import { SelectWorkoutDays } from '@/src/db/schema'
 import { cn } from '@/src/utils'
 import axios, { AxiosError } from 'axios'
 import { useSession } from 'next-auth/react'
@@ -125,7 +125,7 @@ export default function page({params}: {
         <div
         className='flex flex-col gap-2 my-4'
         >
-            {isSuccess && Array.isArray(workout.days)  && workout.days.map((d: WorkoutDays) => (
+            {isSuccess && Array.isArray(workout.days)  && workout.days.map((d: SelectWorkoutDays) => (
                 <Link
                 href={`/workouts/${workout.id}/${d.id}`}
                 >

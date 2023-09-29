@@ -1,6 +1,6 @@
 import WorkoutForm from "@/src/components/forms/workoutForm/WorkoutForm";
 import { db } from "@/src/db";
-import { Workouts, workouts } from "@/src/db/schema";
+import { workouts } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 
