@@ -1,93 +1,97 @@
 import {
   timestamp,
-  pgTable,
-  text,
   primaryKey,
-  integer,
   varchar,
   serial,
-  pgEnum,
   boolean,
-} from "drizzle-orm/pg-core";
+  mysqlTable,
+  int,
+} from "drizzle-orm/mysql-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { InferModel, relations } from "drizzle-orm";
 
 
 //user
-export const users = pgTable("user", {
-  id: text("id").notNull().primaryKey(),
-  name: text("name"),
-  password: text("password").notNull(),
-  email: text("email").notNull(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image"),
+export const users = mysqlTable("user", {
+  id: varchar("id", { length: 255 }).notNull().primaryKey(),
+  name: varchar("name", { length: 255 }),
+  password: varchar("password", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  emailVerified: timestamp("emailVerified", {
+    mode: "date",
+    fsp: 3,
+  }).defaultNow(),
+  image: varchar("image", { length: 255 }),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
 	workouts: many(workouts),
 }));
 
-export type Users = InferModel<typeof users>;
+type SelectUser = typeof users.$inferSelect;
+type InsertUser = typeof users.$inferInsert;
 
 //accounts
-export const accounts = pgTable(
+export const accounts = mysqlTable(
   "account",
   {
-    userId: text("userId")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccount["type"]>().notNull(),
-    provider: text("provider").notNull(),
-    providerAccountId: text("providerAccountId").notNull(),
-    refresh_token: text("refresh_token"),
-    access_token: text("access_token"),
-    expires_at: integer("expires_at"),
-    token_type: text("token_type"),
-    scope: text("scope"),
-    id_token: text("id_token"),
-    session_state: text("session_state"),
+    userId: varchar("userId", { length: 255 })
+      .notNull(),
+    type: varchar("type", { length: 255 })
+      .$type<AdapterAccount["type"]>()
+      .notNull(),
+    provider: varchar("provider", { length: 255 }).notNull(),
+    providerAccountId: varchar("providerAccountId", { length: 255 }).notNull(),
+    refresh_token: varchar("refresh_token", { length: 255 }),
+    access_token: varchar("access_token", { length: 255 }),
+    expires_at: int("expires_at"),
+    token_type: varchar("token_type", { length: 255 }),
+    scope: varchar("scope", { length: 255 }),
+    id_token: varchar("id_token", { length: 255 }),
+    session_state: varchar("session_state", { length: 255 }),
   },
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
   })
 );
 
-export type Accounts = InferModel<typeof accounts>;
+type SelectAccounts = typeof accounts.$inferSelect;
+type InsertAccounts = typeof accounts.$inferInsert;
 
 //session
-export const sessions = pgTable("session", {
-  sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+export const sessions = mysqlTable("session", {
+  sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
+  userId: varchar("userId", { length: 255 })
+    .notNull(),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
 //verificationTokens
-export const verificationTokens = pgTable(
+export const verificationTokens = mysqlTable(
   "verificationToken",
   {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
+    identifier: varchar("identifier", { length: 255 }).notNull(),
+    token: varchar("token", { length: 255 }).notNull(),
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
 );
-export type VerificationTokens = InferModel<typeof verificationTokens>;
+
+type SelectVerificationToken = typeof verificationTokens.$inferSelect;
+type InsertVerificationToken = typeof verificationTokens.$inferInsert;
 
 // workouts
-export const workouts = pgTable(
+export const workouts = mysqlTable(
   "workout",
   {
     id: serial("id").primaryKey().notNull(),
-    name: text("text").notNull(),
+    name: varchar("text", { length: 255 }).notNull(),
     description: varchar('description', { length: 256 }).notNull(),
     public: boolean("public").default(false).notNull(),
     isCopied: boolean("isCopied").default(false).notNull(),
-    userId: text("userId").notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+    userId: varchar("userId", { length: 255 }).notNull(),
   }
 )
 
@@ -99,15 +103,15 @@ export const workoutsRelations = relations(workouts, ({ one, many }) => ({
   days: many(workoutDays),
 }));
 
-export type Workouts= InferModel<typeof workouts>;
+type SelectWorkouts = typeof workouts.$inferSelect;
+type InsertWorkouts = typeof workouts.$inferInsert;
 
-export const workoutDays = pgTable(
+export const workoutDays = mysqlTable(
   "workoutDays", 
   {
     id: serial("id").primaryKey().notNull(),
-    workoutId: integer("workoutId")
-      .references(() => workouts.id, { onDelete: "cascade" }),
-    dayName: text("dayName").notNull()
+    workoutId: int("workoutId"),
+    dayName: varchar("dayName", { length: 255 }).notNull()
   }
 )
 
@@ -119,19 +123,19 @@ export const workoutDaysRelations = relations(workoutDays, ({ one, many }) => ({
   exercises: many(exercises)
 }));
 
-export type WorkoutDays = InferModel<typeof workoutDays>;
+type SelectWorkoutDays = typeof workoutDays.$inferSelect;
+type InsertWorkoutDays = typeof workoutDays.$inferInsert;
 
-export const exercises = pgTable(
+export const exercises = mysqlTable(
   "exercises", 
   {
     id: serial("id").primaryKey().notNull(),
-    workoutDayId: integer("workoutId").notNull()
-      .references(() => workoutDays.id, { onDelete: "cascade" }),
-    name: text("name").notNull(),
-    description: varchar("description"),
-    reps: integer("reps").notNull(),
-    sets: text("sets").notNull(),
-    video: varchar("video")
+    workoutDayId: int("workoutId").notNull(),
+    name: varchar("name", { length: 255 }).notNull(),
+    description: varchar("description", { length: 255 }),
+    reps: int("reps").notNull(),
+    sets: varchar("sets", { length: 255 }).notNull(),
+    video: varchar("video", { length: 255 })
   }
 )
 export const exercisesRelations = relations(exercises, ({ one, many }) => ({
@@ -142,15 +146,15 @@ export const exercisesRelations = relations(exercises, ({ one, many }) => ({
   weights: many(weights)
 }));
 
-export type Exercises = InferModel<typeof exercises>;
+type SelectExercises = typeof exercises.$inferSelect;
+type InsertExercises = typeof exercises.$inferInsert;
 
-export const weights = pgTable(
+export const weights = mysqlTable(
   "weights", 
   {
     id: serial("id").primaryKey().notNull(),
-    weight: integer("weight").notNull(),
-    exerciseId: integer("exerciseId").notNull()
-      .references(() => exercises.id, { onDelete: "cascade" }),
+    weight: int("weight").notNull(),
+    exerciseId: int("exerciseId").notNull(),
     createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
   }
 )
@@ -162,4 +166,6 @@ export const weightsRelations = relations(weights, ({ one }) => ({
 	}),
 }));
 
-export type Weights = InferModel<typeof weights>;
+type SelectWeights = typeof weights.$inferSelect;
+type InsertWeights = typeof weights.$inferInsert;
+

@@ -50,7 +50,7 @@ export async function POST(req: Request, res: Response) {
         userId: user.user.id,
         public: false,
         isCopied: true
-    }).returning({id: workouts.id})
+    })
 
     if(!newWorkout){
         return new Response("Failed to create workout🙁", {
@@ -61,11 +61,11 @@ export async function POST(req: Request, res: Response) {
     const filteredWorkoutDays = copyWorkout.days.map(async (d) => {
         const newWorkoutDay = await db.insert(workoutDays).values({
             dayName: d.dayName,
-            workoutId: newWorkout[0].id,
-        }).returning({id: workoutDays.id})
+            workoutId: parseInt(newWorkout.insertId),
+        })
 
         if(!newWorkoutDay){
-            const deleteWorkout = db.delete(workouts).where(eq(workouts.id, newWorkout[0].id))
+            const deleteWorkout = db.delete(workouts).where(eq(workouts.id, parseInt(newWorkout.insertId)))
             return new Response("Failed to create workout🙁", {
                 status: 400,
             })
@@ -77,11 +77,11 @@ export async function POST(req: Request, res: Response) {
                 reps: e.reps,
                 sets: e.sets,
                 description: e.description,
-                workoutDayId: newWorkoutDay[0].id,
+                workoutDayId: parseInt(newWorkoutDay.insertId),
                 video: e.video
             })
             if(!newExercise){
-                const deleteWorkout = db.delete(workouts).where(eq(workouts.id, newWorkout[0].id))
+                const deleteWorkout = db.delete(workouts).where(eq(workouts.id, parseInt(newWorkout.insertId)))
                 return new Response("Failed to create workout🙁", {
                     status: 400,
                 })

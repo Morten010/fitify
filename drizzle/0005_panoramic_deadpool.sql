@@ -1,1 +1,0 @@
-ALTER TABLE "exercises" RENAME COLUMN "dayName" TO "name";

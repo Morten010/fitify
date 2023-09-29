@@ -1,11 +1,13 @@
 import * as schema from "./schema"
-import { neon, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
 import 'dotenv/config'
+import { drizzle } from 'drizzle-orm/planetscale-serverless'
+import { connect } from '@planetscale/database'
 
-neonConfig.fetchConnectionCache = true;
+console.log(process.env.DATABASE_URL);
 
-console.log(process.env.DATABASE_URL!);
+// create the connection
+const connection = connect({
+    url: process.env.DATABASE_URL
+  });
 
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle(sql, {schema});
+export const db = drizzle(connection, {schema})

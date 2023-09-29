@@ -62,26 +62,32 @@ export default async function page({params}: {
         >
             {workout.description}
         </p>
-        {workout.days.map(d => (
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        {d.dayName}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent
-                className='flex flex-col gap-3'
+        <div
+        className='flex flex-col gap-3'
+        >
+            {workout.days.map(d => (
+                <Card
+                key={d.id}
                 >
-                    {d.exercises.map(ex => (
-                        <ExerciseCard
-                        key={ex.id} 
-                        exercise={ex} 
-                        publicView
-                        />
-                    ))}
-                </CardContent>
-            </Card>
-        ))}
+                    <CardHeader>
+                        <CardTitle>
+                            {d.dayName}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent
+                    className='flex flex-col gap-3'
+                    >
+                        {d.exercises.map(ex => (
+                            <ExerciseCard
+                            key={ex.id} 
+                            exercise={ex} 
+                            publicView
+                            />
+                        ))}
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
     </div>
   )
 }

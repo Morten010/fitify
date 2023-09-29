@@ -26,14 +26,14 @@ export async function PUT(req: Request, res: Response) {
             const workoutDay = await db.insert(workoutDays).values({
                 dayName: day.dayName,
                 workoutId: workoutId
-            }).returning({id: workoutDays.id})
+            })
             const asyncExercises = day.exercises.map(async (ex) => {
                 await db.insert(exercises).values({
                     name: ex.exercise,
                     reps: parseInt(ex.reps),
                     sets: ex.sets,
                     video: ex.video,
-                    workoutDayId: workoutDay[0].id,
+                    workoutDayId: parseInt(workoutDay.insertId),
                     description: ex.description,
                 })
             })
