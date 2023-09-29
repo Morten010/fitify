@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { DarkModeButton } from './DarkModeButton'
 import { Button, buttonVariants } from './ui/button'
 import { AiFillHome } from 'react-icons/ai'
 import {BiSolidUser} from "react-icons/bi"
@@ -23,35 +22,14 @@ export default function Navbar() {
         <div
         className='flex gap-2 justify-between mx-auto max-w-screen-lg'
         >
-          <div
-          className='flex gap-2'
-          >      
-            <Link
-            href="/"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "icon"})
-            )}
-            >
-              <AiFillHome />
-            </Link>
+          <Button
+          variant={"outline"}
+          size={'icon'}
+          onClick={() => handleBack()}
+          >
+            <FaBackward />
+          </Button>
 
-            <Button
-            variant={"outline"}
-            size={'icon'}
-            onClick={() => handleBack()}
-            >
-              <FaBackward />
-            </Button>
-
-            <Link
-            href="/profile"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "icon"})
-            )}
-            >
-              <BiSolidUser />
-            </Link>
-          </div>
           <Link
           href="/create"
           className={cn(
