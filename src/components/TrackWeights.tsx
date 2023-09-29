@@ -4,8 +4,8 @@ import { Button } from './ui/button'
 import { useMutation, useQuery } from 'react-query';
 import { toast } from './ui/use-toast';
 import axios, { AxiosError } from 'axios';
-import { Weights } from '../db/schema';
 import ExerciseWeightChart from './charts/ExerciseWeightChart';
+import { SelectWeights } from '../db/schema';
 
 export default function TrackWeights({exerciseId} : {
   exerciseId: number
@@ -101,7 +101,7 @@ export default function TrackWeights({exerciseId} : {
           Last lifts
         </h4>
         <ul>
-          {weights && isSuccess && !!weights[0] && weights.map((w: Weights) => (
+          {weights && isSuccess && !!weights[0] && weights.map((w: SelectWeights) => (
             <li
             className='flex justify-between py-2 border-y border-border'
             >
