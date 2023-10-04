@@ -274,17 +274,6 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                 <CardTitle>
                     {workoutDay.dayName}
                 </CardTitle>
-
-                <Button
-                type='button'
-                variant={'outline'}
-                size={'icon'}
-                onClick={() => addExercise(workoutDay.id)}
-                >
-                    <AiOutlinePlus 
-                    className="text-xl"
-                    />
-                </Button>
             </CardHeader>
             <CardContent>
                {workoutDay.exercises.map((workout, index) => (
@@ -350,6 +339,20 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     </Button>
                  </div>
                ))}
+               <div
+               className='flex justify-end'
+               >
+                    <Button
+                    type='button'
+                    variant={'outline'}
+                    size={'icon'}
+                    onClick={() => addExercise(workoutDay.id)}
+                    >
+                        <AiOutlinePlus 
+                        className="text-xl"
+                        />
+                    </Button>
+               </div>
             </CardContent>
         </Card>
     </div>

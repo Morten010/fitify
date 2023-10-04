@@ -63,7 +63,6 @@ export async function DELETE(req: Request, res: Response) {
 
         //delete workouts at the end
         const workout = await tx.delete(workouts).where(eq(workouts.id, parseInt(id)))
-        console.log(workout);
         
     })
 
