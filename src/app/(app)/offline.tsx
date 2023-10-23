@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Offline() {
+export default function offline() {
   return (
     <div>
-        Offline 2
+        lol offline
     </div>
   )
 }
