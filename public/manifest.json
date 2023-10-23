@@ -8,7 +8,7 @@
     "name": "Fitify - you're new workout buddy",
     "short_name": "Fititfy",
     "description": "create personal workouts and grow with you're new workout buddy",
-    "orientation": "portrait-primary",
+    "orientation": "portrait",
     "icons": [
         {
             "src": "/icon-192x192.png",
