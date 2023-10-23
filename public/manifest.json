@@ -13,17 +13,38 @@
         {
             "name": "Home",
             "url": "/",
-            "description": "Homepage"
+            "description": "Homepage",
+            "icons": [
+                {
+                    "src": "/icon-96x96.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
         },
         {
             "name": "Home",
             "url": "/create",
-            "description": "Create new workout"
+            "description": "Create new workout",
+            "icons": [
+                {
+                    "src": "/icon-96x96.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
         },
         {
             "name": "community workouts",
             "url": "/community",
-            "description": "Explore the community's workout"
+            "description": "Explore the community's workout",
+            "icons": [
+                {
+                    "src": "/icon-96x96.png",
+                    "sizes": "96x96",
+                    "type": "image/png"
+                }
+            ]
         }
     ],
     "icons": [
