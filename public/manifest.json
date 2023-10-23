@@ -9,6 +9,23 @@
     "short_name": "Fititfy",
     "description": "create personal workouts and grow with you're new workout buddy",
     "orientation": "portrait",
+    "shortcuts": [
+        {
+            "name": "Home",
+            "url": "/",
+            "description": "Homepage"
+        },
+        {
+            "name": "Home",
+            "url": "/create",
+            "description": "Create new workout"
+        },
+        {
+            "name": "community workouts",
+            "url": "/community",
+            "description": "Explore the community's workout"
+        }
+    ],
     "icons": [
         {
             "src": "/icon-192x192.png",
