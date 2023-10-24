@@ -6,6 +6,7 @@ const withPWA = require("@ducanh2912/next-pwa").default({
     disable: process.env.NODE_ENV === 'development',
     fallbacks: {
         document: "/offline",
+        image: "/no-Connection-illustartion.svg"
     }
 });
   
