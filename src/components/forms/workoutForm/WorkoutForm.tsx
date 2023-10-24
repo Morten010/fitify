@@ -526,7 +526,7 @@ export default function WorkoutForm({edit = false, workout}: WorkoutFormProps) {
             {isLoadingUpdate && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            {workout ? "Change" : "Submit"}
+            {workout ? "Save" : "Submit"}
         </Button>
     </form>
   )
