@@ -13,7 +13,7 @@ export default function offline() {
     className='max-w-screen-lg mx-auto pb-[68px] h-screen flex flex-col justify-center'
     >
       <Image 
-      src="/no-Connection-illustartion.svg"
+      src="/no-connection.svg"
       alt='No connection'
       width={300}
       height={242}
