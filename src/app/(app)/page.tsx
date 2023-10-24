@@ -14,7 +14,7 @@ import { SelectWorkouts } from '@/src/db/schema'
 export default function Home() {
   const user = useSession()
   
-  const {data: workouts, isLoading, isSuccess, isError} = useQuery({
+  const {data: workouts, isFetching, isSuccess, isError} = useQuery({
     queryFn: async () => {
       if(!user.data) return []
       const {data} = await axios.get(`/api/workouts/find?id=${user.data?.user.id}`)
@@ -47,7 +47,7 @@ export default function Home() {
         >
           You're workouts
         </h2>
-        {isLoading && (
+        {!isFetching && !isError && (
           <>
             <WorkoutCardSkeleton />
             <WorkoutCardSkeleton />
