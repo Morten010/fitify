@@ -18,7 +18,7 @@ export default function offline() {
       <h1
       className='text-center class text-muted-foreground mt-2'
       >
-        page not found
+        Page Not Found
       </h1>
       <a
       href="/"
