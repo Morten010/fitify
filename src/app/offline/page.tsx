@@ -15,7 +15,7 @@ export default function offline() {
       className='mx-auto'
       />
       <h1
-      className='text-center class text-muted-foreground mt-3 text-xl mb-1 max-w-[75%] mx-auto'
+      className='text-center class text-muted-foreground mt-3 text-xl mb-1 max-w-[85%] mx-auto'
       >
         Oops! It seems like you're not connected to the internet. Please check your network settings and try again.
       </h1>
