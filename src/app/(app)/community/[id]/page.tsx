@@ -23,7 +23,6 @@ export default async function page({params}: {
             user: true
          }
     })
-    console.log(workout);
 
     //if workout dosent exist
     if(!workout){

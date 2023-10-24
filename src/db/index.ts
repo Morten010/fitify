@@ -3,7 +3,7 @@ import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/planetscale-serverless'
 import { connect } from '@planetscale/database'
 
-console.log(process.env.DATABASE_URL);
+console.log("DATABASE: url", process.env.DATABASE_URL);
 
 // create the connection
 const connection = connect({

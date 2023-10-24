@@ -15,13 +15,11 @@ export default function LoginPage() {
 
   const {mutateAsync: deleteUser, isLoading} =useMutation({
     mutationFn: async (userId: string) => {
-      console.log(userId);
       
       const {data} = await axios.delete(`/api/user/delete?id=${userId}`,);
       return data
     },
     onError: (err: AxiosError) => {
-      console.log(err);
       toast({
         title: "Could not Delete account",
         description: `Could not delete your account ${err.response?.data} at this time try again or come back later😢`,
