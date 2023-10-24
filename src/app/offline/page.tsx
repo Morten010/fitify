@@ -1,12 +1,7 @@
-import { Button } from '@/src/components/ui/button'
 import Image from 'next/image'
 import React from 'react'
 
 export default function offline() {
-
-  const handleRefresh = () => {
-    
-  }
 
   return (
     <div
@@ -22,7 +17,7 @@ export default function offline() {
       <h1
       className='text-center class text-muted-foreground'
       >
-        you are offline get connection to continue
+        Oops! It seems like you're not connected to the internet. Please check your network settings and try again.
       </h1>
     </div>
   )
