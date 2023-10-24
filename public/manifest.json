@@ -5,68 +5,71 @@
     "scope": "/",
     "start_url": "/",
     "id": "/",
-    "name": "Fitify - you're new workout buddy",
+    "name": "Fitify",
     "short_name": "Fititfy",
     "description": "create personal workouts and grow with you're new workout buddy",
     "orientation": "portrait",
     "shortcuts": [
-        {
-            "name": "Home",
-            "url": "/",
-            "description": "Homepage",
-            "icons": [
-                {
-                    "src": "/icon-96x96.png",
-                    "sizes": "96x96",
-                    "type": "image/png"
-                }
-            ]
-        },
-        {
-            "name": "Create workout",
-            "url": "/create",
-            "description": "Create new workout",
-            "icons": [
-                {
-                    "src": "/icon-96x96.png",
-                    "sizes": "96x96",
-                    "type": "image/png"
-                }
-            ]
-        },
-        {
-            "name": "community workouts",
-            "url": "/community",
-            "description": "Explore the community's workout",
-            "icons": [
-                {
-                    "src": "/icon-96x96.png",
-                    "sizes": "96x96",
-                    "type": "image/png"
-                }
-            ]
-        }
+      {
+        "name": "Home",
+        "url": "/",
+        "description": "Homepage",
+        "icons": [
+          {
+            "src": "/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+          }
+        ]
+      },
+      {
+        "name": "Create workout",
+        "url": "/create",
+        "description": "Create new workout",
+        "icons": [
+          {
+            "src": "/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+          }
+        ]
+      },
+      {
+        "name": "community workouts",
+        "url": "/community",
+        "description": "Explore the community's workout",
+        "icons": [
+          {
+            "src": "/icon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+          }
+        ]
+      }
     ],
     "icons": [
-        {
-            "src": "/icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-256x256.png",
-            "sizes": "256x256",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-384x384.png",
-            "sizes": "384x384",
-            "type": "image/png"
-        },
-        {
-            "src": "/icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
+      {
+        "src": "/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icon-256x256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+      {
+        "src": "/icon-384x384.png",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "dir": "auto",
+    "lang": "en",
+    "categories":  ["workout", "fitness", "exercise", "weight lifting"]
 }
