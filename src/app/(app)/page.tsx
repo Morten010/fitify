@@ -14,7 +14,7 @@ import { SelectWorkouts } from '@/src/db/schema'
 export default function Home() {
   const user = useSession()
   
-  const {data: workouts, isLoading, isSuccess, isError} = useQuery({
+  const {data: workouts, isLoading, isSuccess, isError, status} = useQuery({
     queryFn: async () => {
       if(!user.data) return []
       const {data} = await axios.get(`/api/workouts/find?id=${user.data?.user.id}`)
@@ -24,6 +24,12 @@ export default function Home() {
     enabled: !!user.data
   })
   
+  console.log("status: ", status);
+  console.log("isLoading: ", isLoading);
+  console.log("isSuccess: ", isSuccess);
+  console.log("isError: ", isError);
+  
+
   return (
     <main
     className='p-3'
