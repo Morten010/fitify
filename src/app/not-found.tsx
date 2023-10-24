@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
+
 export default function offline() {
 
   return (
@@ -19,6 +20,12 @@ export default function offline() {
       >
         page not found
       </h1>
+      <a
+      href="/"
+      className='text-center underline text-primary'
+      >
+        Go to homepage
+      </a>
     </div>
   )
 }
