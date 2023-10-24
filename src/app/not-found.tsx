@@ -16,7 +16,7 @@ export default function offline() {
       className='mx-auto'
       />
       <h1
-      className='text-center class text-muted-foreground mt-2'
+      className='text-center class text-muted-foreground mt-3 text-2xl mb-1'
       >
         Page Not Found
       </h1>
