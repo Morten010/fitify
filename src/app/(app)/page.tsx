@@ -14,7 +14,7 @@ export default function Home() {
   const user = useSession()
   
   //fetch users workouts
-  const {data: workouts, isLoading, isFetching, isSuccess, isError, status} = useQuery({
+  const {data: workouts, isLoading, isIdle, isSuccess, isError, status} = useQuery({
     queryFn: async () => {
       if(!user.data) return []
       const {data} = await axios.get(`/api/workouts/find?id=${user.data?.user.id}`)
@@ -24,6 +24,9 @@ export default function Home() {
     //first fetch when user data has arrived
     enabled: !!user.data
   })
+
+  console.log(status);
+  
 
   return (
     <main
@@ -48,7 +51,7 @@ export default function Home() {
         >
           You're workouts
         </h2>
-        {isLoading && (
+        {isLoading || isIdle && (
           <>
             <WorkoutCardSkeleton />
             <WorkoutCardSkeleton />
