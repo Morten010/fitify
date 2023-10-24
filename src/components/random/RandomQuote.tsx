@@ -15,11 +15,7 @@ export default function RandomQuote() {
 
   const randomNumber = Math.floor(Math.random() * randomQuotes.length)
 
-  console.log(randomNumber);
-
   const quote = randomQuotes[randomNumber]
-
-  console.log(quote);
 
   return (
     <Dialog>
@@ -37,7 +33,7 @@ export default function RandomQuote() {
             className="text-3xl"
             />
             <p
-            className='text-start text-lg'
+            className='text-start text-lg mb-1'
             >
               {quote && quote.quote}
             </p>

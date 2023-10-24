@@ -17,7 +17,7 @@ export default async function AuthLayout({children}: {children: React.ReactNode}
     <main>
       <Navbar />
       <div
-      className='max-w-screen-lg mx-auto pb-[68px]'
+      className='max-w-screen-lg mx-auto pb-[80px]'
       >
         {children}
       </div>
