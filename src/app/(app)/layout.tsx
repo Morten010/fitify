@@ -6,8 +6,10 @@ import Navbar from '@/src/components/Navbar';
 import BottomNav from '@/src/components/BottomNav';
 
 export default async function AuthLayout({children}: {children: React.ReactNode}) {
+    // get user session
     const session = await getServerSession(authOptions)
     
+    // if session dosen't exist go to login
     if(!session){
         redirect("/login")
     }
