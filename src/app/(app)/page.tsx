@@ -10,8 +10,10 @@ import PublicBanner from '@/src/components/public/PublicBanner'
 import { SelectWorkouts } from '@/src/db/schema'
 
 export default function Home() {
+  // get user data
   const user = useSession()
   
+  //fetch users workouts
   const {data: workouts, isLoading, isFetching, isSuccess, isError, status} = useQuery({
     queryFn: async () => {
       if(!user.data) return []
@@ -19,9 +21,10 @@ export default function Home() {
       return data
     },
     queryKey: ['Home'],
+    //first fetch when user data has arrived
     enabled: !!user.data
   })
-  
+
   return (
     <main
     className='p-3'
