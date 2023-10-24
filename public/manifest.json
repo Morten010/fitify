@@ -23,7 +23,7 @@
             ]
         },
         {
-            "name": "Home",
+            "name": "Create workout",
             "url": "/create",
             "description": "Create new workout",
             "icons": [
