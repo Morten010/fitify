@@ -22,12 +22,6 @@ export default function Home() {
     enabled: !!user.data
   })
   
-  console.log("status: ", status);
-  console.log("isLoading: ", isLoading);
-  console.log("isSuccess: ", isSuccess);
-  console.log("isError: ", isError);
-  
-
   return (
     <main
     className='p-3'
