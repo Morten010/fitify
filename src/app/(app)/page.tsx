@@ -8,6 +8,7 @@ import WorkoutCardSkeleton from '@/src/components/skeletons/WorkoutCardSkeleton'
 import Link from 'next/link'
 import PublicBanner from '@/src/components/public/PublicBanner'
 import { SelectWorkouts } from '@/src/db/schema'
+import RandomQuote from '@/src/components/random/RandomQuote'
 
 export default function Home() {
   // get user data
@@ -43,6 +44,13 @@ export default function Home() {
       >
         <PublicBanner title='Try a community workout' />
       </Link>
+      {/* random quote and random song recommendation */}
+      <div
+      className='grid grid-cols-2 mb-3'
+      >
+        <RandomQuote />
+      </div>
+
       <section
       className='w-full flex flex-col gap-3'
       >
