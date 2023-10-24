@@ -28,4 +28,5 @@ Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm
 - [ ] Keep track of you're weight
 - [ ] Make workouts public and make them copyable
 - [ ] add public profiles
-- [ ] add recipes or posts
+- [ ] add random quotes from fitness influencers
+- [ ] add random music recommendation

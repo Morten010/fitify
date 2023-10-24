@@ -48,7 +48,7 @@ export default function Home() {
         >
           You're workouts
         </h2>
-        {!isSuccess && (
+        {isLoading && (
           <>
             <WorkoutCardSkeleton />
             <WorkoutCardSkeleton />
