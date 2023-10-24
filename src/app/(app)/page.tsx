@@ -15,7 +15,7 @@ export default function Home() {
   const user = useSession()
   
   //fetch users workouts
-  const {data: workouts, isLoading, isIdle, isSuccess, isError, status} = useQuery({
+  const {data: workouts, isLoading, isIdle, isSuccess, isError } = useQuery({
     queryFn: async () => {
       if(!user.data) return []
       const {data} = await axios.get(`/api/workouts/find?id=${user.data?.user.id}`)
@@ -26,8 +26,6 @@ export default function Home() {
     enabled: !!user.data
   })
 
-  console.log(status);
-  
 
   return (
     <main

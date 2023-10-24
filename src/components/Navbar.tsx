@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <nav
-    className='p-3 border-b shadow-sm sticky top-0 z-50 bg-background'
+    className='px-3 py-2 border-b shadow-sm sticky top-0 z-50 bg-background'
     >
         <div
         className='flex gap-2 justify-between mx-auto max-w-screen-lg'
@@ -30,14 +30,6 @@ export default function Navbar() {
             <FaBackward />
           </Button>
 
-          <Link
-          href="/create"
-          className={cn(
-            buttonVariants({ variant: "default", size: "sm"})
-          )}
-          >
-            Create Workout
-          </Link>
         </div>
     </nav>
   )
