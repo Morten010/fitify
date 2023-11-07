@@ -23,6 +23,44 @@ type WorkoutsProps = {
 
 export default function Workouts({workoutDispatch, workoutState, workoutDay}: WorkoutsProps) {
 
+    // update exercise
+    const updatedExercise = (
+        day: WorkoutProps, 
+        change: {
+            id?: number
+            exercise?: string
+            description?: string
+            reps?: string
+            sets?: string
+            video?: string
+        }
+    ) => {
+        
+        const sortedDays = workoutState.days.map(d => {
+            if(!d.exercises.includes(day)) return d
+            const newExercises = d.exercises.map(ex => {
+                if(ex.id !== day.id ) return ex
+                    
+                return {
+                    ...ex,
+                    ...change
+                }
+            });
+            return {
+                dayName: d.dayName,
+                exercises: newExercises,
+                id: d.id
+            }
+        })
+
+        console.log(sortedDays);
+        
+        workoutDispatch({
+            ...workoutState,
+            days: sortedDays
+        })
+    }
+
     const addExercise = (id: number) => {
         const sortedDays = workoutState.days.map(d => {
             if(d.id !== id) return d
@@ -62,120 +100,6 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
         workoutDispatch({
             ...workoutState,
             days: sortedDays,
-        })
-    }
-
-    const handleNameChange = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
-        
-        const sortedDays = workoutState.days.map(d => {
-            if(!d.exercises.includes(day)) return d
-            const newExercises = d.exercises.map(ex => {
-                if(ex.id !== day.id ) return ex
-                    
-                return {
-                    id: ex.id,
-                    exercise: e.currentTarget.value,
-                    description: ex.description,
-                    reps: ex.reps,
-                    sets: ex.sets,
-                    video: ex.video
-                }
-            });
-            return {
-                dayName: d.dayName,
-                exercises: newExercises,
-                id: d.id
-            }
-        })
-        
-        workoutDispatch({
-            ...workoutState,
-            days: sortedDays
-        })
-        
-    }
-
-        const handleDescChange = (day: WorkoutProps, e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        
-        const sortedDays = workoutState.days.map(d => {
-            if(!d.exercises.includes(day)) return d
-            const newExercises = d.exercises.map(ex => {
-                if(ex.id !== day.id ) return ex
-                    
-                return {
-                    id: ex.id,
-                    exercise: ex.exercise,
-                    description: e.currentTarget.value,
-                    reps: ex.reps,
-                    sets: ex.sets,
-                    video: ex.video
-                }
-            });
-            return {
-                dayName: d.dayName,
-                exercises: newExercises,
-                id: d.id
-            }
-        })
-        
-        workoutDispatch({
-            ...workoutState,
-            days: sortedDays
-        })
-        
-    }
-
-    const handleRepsChange = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
-        const sortedDays = workoutState.days.map(d => {
-            if(!d.exercises.includes(day)) return d
-            const newExercises = d.exercises.map(ex => {
-                if(ex.id !== day.id ) return ex
-                    
-                return {
-                    id: ex.id,
-                    exercise: ex.exercise,
-                    reps: e.currentTarget.value,
-                    description: ex.description,
-                    sets: ex.sets,
-                    video: ex.video
-                }
-            });
-            return {
-                dayName: d.dayName,
-                exercises: newExercises,
-                id: d.id
-            }
-        })
-        workoutDispatch({
-            ...workoutState,
-            days: sortedDays
-        })
-    }
-
-    const handleSetsChange = (day: WorkoutProps, e: React.ChangeEvent<HTMLInputElement>) => {
-        const sortedDays = workoutState.days.map(d => {
-            if(!d.exercises.includes(day)) return d
-            const newExercises = d.exercises.map(ex => {
-                if(ex.id !== day.id ) return ex
-                    
-                return {
-                    id: ex.id,
-                    exercise: ex.exercise,
-                    reps: ex.reps,
-                    sets: e.currentTarget.value,
-                    description: ex.description,
-                    video: ex.video
-                }
-            });
-            return {
-                dayName: d.dayName,
-                exercises: newExercises,
-                id: d.id,
-            }
-        })
-        workoutDispatch({
-            ...workoutState,
-            days: sortedDays
         })
     }
 
@@ -287,7 +211,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     <Input 
                     placeholder='exercise name'
                     value={workout.exercise}
-                    onChange={(e) => handleNameChange(workout, e)}
+                    onChange={(e) => updatedExercise(workout, { exercise: e.currentTarget.value })}
                     className='text-base'
                     />
                     <Textarea 
@@ -295,7 +219,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     value={workout.description} 
                     rows={2}
                     className='resize-none text-base'
-                    onChange={(e) => handleDescChange(workout , e)}
+                    onChange={(e) => updatedExercise(workout, { description: e.currentTarget.value })}
                     />
                     <div
                     className='flex gap-2'
@@ -304,14 +228,14 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                         placeholder='reps'
                         type='number'
                         value={workout.reps}
-                        onChange={(e) => handleRepsChange(workout, e)}
+                        onChange={(e) => updatedExercise(workout, { reps: e.currentTarget.value })}
                         className='text-base'
                         />
                         <Input 
                         type='text'
                         placeholder='sets'
                         value={workout.sets}
-                        onChange={(e) => handleSetsChange(workout, e)}
+                        onChange={(e) => updatedExercise(workout, { sets: e.currentTarget.value })}
                         className='text-base'
                         />
                     </div>
