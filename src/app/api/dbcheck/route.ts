@@ -3,6 +3,7 @@ import { workouts } from "@/src/db/schema"
 import { eq } from "drizzle-orm"
 import { NextResponse } from "next/server"
 
+
 export const GET = async () => {
     const workout = await db.query.workouts.findFirst({
         where: eq(workouts.id, 1)
