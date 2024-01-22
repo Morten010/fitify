@@ -27,7 +27,6 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
     const updatedExercise = (
         day: WorkoutProps, 
         change: {
-            id?: number
             exercise?: string
             description?: string
             reps?: string
@@ -53,8 +52,6 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
             }
         })
 
-        console.log(sortedDays);
-        
         workoutDispatch({
             ...workoutState,
             days: sortedDays
@@ -65,8 +62,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
         const sortedDays = workoutState.days.map(d => {
             if(d.id !== id) return d
             return {
-                id: d.id,
-                dayName: d.dayName,
+                ...d,
                 exercises: [...d.exercises, {
                     id: Date.now(),
                     exercise: "",
@@ -115,11 +111,7 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                     if(ex.id !== day.id ) return ex
                         
                     return {
-                        id: ex.id,
-                        exercise: ex.exercise,
-                        reps: ex.reps,
-                        sets: ex.sets,
-                        description: ex.description,
+                        ...ex,
                         video: newUrl
                     }
                 });
@@ -279,6 +271,6 @@ export default function Workouts({workoutDispatch, workoutState, workoutDay}: Wo
                </div>
             </CardContent>
         </Card>
-    </div>
+    </div> 
   )
 }
