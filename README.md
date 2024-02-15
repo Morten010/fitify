@@ -1,4 +1,4 @@
-# [Fitify - you're new workout buddy](https://fitify-phi.vercel.app/)
+# [Fitify - you're new workout buddy](https://wireup.vercel.app/)
 
 Built with the Next.js App Router, TypeScript, Tailwind, Neon db and Drizzle orm.
 
