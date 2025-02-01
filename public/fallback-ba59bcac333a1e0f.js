@@ -1,1 +1,1 @@
-self.fallback=async e=>{let{destination:a,url:n}=e,o={document:"/~offline",image:!1,audio:!1,video:!1,font:!1}[a];return o?caches.match(o,{ignoreSearch:!0}):Response.error()};
+self.fallback=async e=>{let{destination:n,url:o}=e,a={document:"/offline",image:"/no-connection.svg",audio:!1,video:!1,font:!1}[n];return a?caches.match(a,{ignoreSearch:!0}):Response.error()};

@@ -20,40 +20,40 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
 
 //validation schema
 const LoginSchema = object({
-  email: string("Email Required",[
+  email: string("Email Required", [
     email("Email required")
   ]),
-  password: string("Password required",[
+  password: string("Password required", [
     minLength(6, "Password has to be atleast 6 characters"),
   ]),
 });
-  const signUpSchema = object({
-    name: string("Name required", [
-      minLength(2, "Name required")
-    ]),
-    email: string("Email Required",[
-      email("Email required")
-    ]),
-    password: string("Password required",[
-      minLength(6, "Password has to be atleast 6 characters"),
-    ]),
-  });
+const signUpSchema = object({
+  name: string("Name required", [
+    minLength(2, "Name required")
+  ]),
+  email: string("Email Required", [
+    email("Email required")
+  ]),
+  password: string("Password required", [
+    minLength(6, "Password has to be atleast 6 characters"),
+  ]),
+});
 
 
 type UserProps = Output<typeof LoginSchema> & {
   name?: string
 }
 
-export default function UserAuthForm({ className, login=false, ...props }: UserAuthFormProps) {
-  const [userState, userDispatch] = useReducer((prev: UserProps , next: UserProps ) => {
-    return {...prev, ...next}
+export default function UserAuthForm({ className, login = false, ...props }: UserAuthFormProps) {
+  const [userState, userDispatch] = useReducer((prev: UserProps, next: UserProps) => {
+    return { ...prev, ...next }
   }, {
     name: "",
     email: "",
     password: ""
   })
   const [errorState, errorDispatch] = useReducer((prev: UserProps, next: UserProps) => {
-    return {...prev, ...next}
+    return { ...prev, ...next }
   }, {
     name: "",
     email: "",
@@ -61,20 +61,20 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
   })
   const [errorMsg, setErrorMsg] = useState("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const {toast} = useToast()
+  const { toast } = useToast()
   const session = useSession()
   const router = useRouter()
-  
-  type AddUserParams ={
+
+  type AddUserParams = {
     email: string;
     password: string;
     name: string;
   }
 
-  const {mutateAsync: AddUser} = useMutation({
-    mutationFn: async ({email, password, name}: AddUserParams) => {
-      const sendUser = {email, password, name};
-      const {data} = await axios.post("/api/signup", sendUser);
+  const { mutateAsync: AddUser } = useMutation({
+    mutationFn: async ({ email, password, name }: AddUserParams) => {
+      const sendUser = { email, password, name };
+      const { data } = await axios.post("/api/signup", sendUser);
       return data
     },
     onError: (err: AxiosError) => {
@@ -92,7 +92,7 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
       })
     },
   });
-  
+
 
   async function handleLogin(event: React.SyntheticEvent) {
     event.preventDefault()
@@ -103,10 +103,10 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
       password: ""
     })
 
-    try{
-      parse(LoginSchema, {...userState})
-      
-    }catch(err: any){
+    try {
+      parse(LoginSchema, { ...userState })
+
+    } catch (err: any) {
       //flatten error to useable object
       const errors = flatten(err).nested
 
@@ -123,18 +123,18 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
       setIsLoading(false)
       return
     }
-    
+
     const res = await signIn("credentials", {
       ...userState,
       redirect: false,
     })
-    
-    if(!res?.url){
+
+    if (!res?.url) {
       toast({
         title: "Incorrect Login Credentials",
         description: "the login credentials you entered are incorrect. Please double-check your email/username and password and try again😢",
         variant: "destructive"
-      })      
+      })
       setIsLoading(false)
       return
     }
@@ -142,7 +142,7 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
     toast({
       title: "Logged in",
       description: "Redirecting you now🏎️"
-    })   
+    })
     setIsLoading(false)
   }
 
@@ -156,13 +156,13 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
       name: ""
     })
 
-    try{
-      parse(signUpSchema, {...userState})
-      
-    }catch(err: any){
+    try {
+      parse(signUpSchema, { ...userState })
+
+    } catch (err: any) {
       //flatten error to useable object
       console.log(err);
-      
+
       const errors = flatten(err).nested
 
       //format password
@@ -177,32 +177,32 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
 
       //stop loading
       setIsLoading(false)
-      return 
+      return
     }
     console.log(userState.name?.trim());
-    
+
     const cleanUser = {
       name: userState.name?.trim()!,
       email: userState.email.trim(),
       password: userState.password.trim()
     }
     console.log(cleanUser);
-    
+
 
     const res = await AddUser(cleanUser)
 
     console.log(res);
     //stop loading
     setIsLoading(false)
-    
+
   }
-    
+
   useEffect(() => {
-    if(session.data){
+    if (session.data) {
       router.refresh()
     }
   }, [session])
-  
+
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
@@ -212,7 +212,7 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
             {!login && (
               <>
                 <Label className="sr-only" htmlFor="name">
-                Email
+                  Email
                 </Label>
                 <Input
                   id="name"
@@ -282,9 +282,9 @@ export default function UserAuthForm({ className, login=false, ...props }: UserA
             />
           </div>
           {errorState.password && (
-              <p className="text-red-600 text-sm">
-                {errorState.password}
-              </p>
+            <p className="text-red-600 text-sm">
+              {errorState.password}
+            </p>
           )}
           {errorMsg && (
             <p className="text-red-600 text-sm">
