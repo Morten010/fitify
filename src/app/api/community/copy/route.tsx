@@ -7,7 +7,7 @@ import { eq } from 'drizzle-orm';
 
 export async function POST(req: Request, res: Response) {
     console.log("ran");
-    const {id}: { id: number } = await req.json()
+    const { id }: { id: number } = await req.json()
 
     console.log(id);
 
@@ -22,21 +22,21 @@ export async function POST(req: Request, res: Response) {
         }
     })
     console.log(copyWorkout);
-    
 
-    if(!copyWorkout){
+
+    if (!copyWorkout) {
         console.log("error");
-        
+
         return new Response("Failed to copy workout🙁", {
             status: 400,
         })
     }
-    
+
     const user = await getServerSession(authOptions)
 
     console.log(user);
-    
-    if(!user?.user.id){
+
+    if (!user?.user.id) {
         console.log("error");
 
         return new Response("Could not get user🙁", {
@@ -52,7 +52,10 @@ export async function POST(req: Request, res: Response) {
         isCopied: true
     })
 
-    if(!newWorkout){
+    const newWorkoutId = newWorkout[0].insertId
+
+
+    if (!newWorkout) {
         return new Response("Failed to create workout🙁", {
             status: 400,
         })
@@ -61,11 +64,11 @@ export async function POST(req: Request, res: Response) {
     const filteredWorkoutDays = copyWorkout.days.map(async (d) => {
         const newWorkoutDay = await db.insert(workoutDays).values({
             dayName: d.dayName,
-            workoutId: parseInt(newWorkout.insertId),
+            workoutId: newWorkoutId,
         })
 
-        if(!newWorkoutDay){
-            const deleteWorkout = db.delete(workouts).where(eq(workouts.id, parseInt(newWorkout.insertId)))
+        if (!newWorkoutDay) {
+            const deleteWorkout = db.delete(workouts).where(eq(workouts.id, newWorkoutId))
             return new Response("Failed to create workout🙁", {
                 status: 400,
             })
@@ -77,11 +80,11 @@ export async function POST(req: Request, res: Response) {
                 reps: e.reps,
                 sets: e.sets,
                 description: e.description,
-                workoutDayId: parseInt(newWorkoutDay.insertId),
+                workoutDayId: newWorkoutId,
                 video: e.video
             })
-            if(!newExercise){
-                const deleteWorkout = db.delete(workouts).where(eq(workouts.id, parseInt(newWorkout.insertId)))
+            if (!newExercise) {
+                const deleteWorkout = db.delete(workouts).where(eq(workouts.id, newWorkoutId))
                 return new Response("Failed to create workout🙁", {
                     status: 400,
                 })
@@ -91,7 +94,7 @@ export async function POST(req: Request, res: Response) {
     })
 
     await Promise.all(filteredWorkoutDays)
-    
+
 
     return new Response("Successfully created workout")
 }
