@@ -4,16 +4,17 @@ const withPWA = require("@ducanh2912/next-pwa").default({
     output: "standalone",
     register: true,
     skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development',
+    disable: true,
     fallbacks: {
-        document: "/offline",
+        document: "/offline.html",
         image: "/no-connection.svg"
-    }
+    },
 });
   
 
 const nextConfig = withPWA({
     reactStrictMode: true,
+    dangerouslyAllowCleanPatternsOutsideProject: true,
 })
 
 module.exports = nextConfig
