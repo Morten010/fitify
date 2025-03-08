@@ -1,6 +1,6 @@
 import { db } from '@/src/db'
 import { users } from '@/src/db/schema'
-import {nanoid} from "nanoid"
+import { nanoid } from "nanoid"
 import bcrypt from "bcrypt"
 import { eq } from 'drizzle-orm'
 
@@ -12,21 +12,29 @@ type BodyProps = {
 
 export async function POST(req: Request, res: Response) {
     const body = await req.json()
-    const {email , password, name} = body
+    const { email, password, name } = body
 
-    if(!email || !password || !name){
+    if (!email || !password || !name) {
         return new Response("Missing name, password or email", {
             status: 400
         })
     }
 
-    const user = await db.query.users.findFirst({
-        where: eq(users.email, email)
-    })
+    try {
+        const user = await db.query.users.findFirst({
+            where: eq(users.email, email)
+        })
 
-    if(user){
-        return new Response("User already exist", {
-            status: 400
+        if (user) {
+            return new Response("User already exist", {
+                status: 400
+            })
+        }
+    } catch (error) {
+        console.log(error);
+
+        return new Response("Something went wrong", {
+            status: 500
         })
     }
 
@@ -39,7 +47,7 @@ export async function POST(req: Request, res: Response) {
         id: nanoid()
     })
 
-    if(!newUser){
+    if (!newUser) {
         return new Response("Something went wrong", {
             status: 400
         })
